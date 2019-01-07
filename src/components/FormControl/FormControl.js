@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const formControl = (props) => (
 	<View style={styles.formControl}>
-		<Icon name={props.icon} size={26} color="#ccc" style={{marginTop:12, marginRight:3}}/>
+		<Icon name={props.icon} size={26} color="#ccc" style={{ marginTop:5, marginRight:3}}/>
 		<TextInput 
 			placeholder = {props.holder}
 			placeholderTextColor = "#ccc"
@@ -18,15 +18,16 @@ const formControl = (props) => (
 const styles = StyleSheet.create({
 	formControl:{
 		flexDirection: 'row',
-		paddingLeft: 5
-	},
-	input : {
+		paddingLeft: 5,
 		borderBottomColor: '#ccc',
 		borderBottomWidth: 1,
+		marginBottom: 30,
+	},
+	input : {
 		width:'95%',
 		paddingLeft: 5,
-		marginBottom: 30,
-		height: 55,
+		height: 40,
+		flex:1,
 		fontWeight: '500'
 	}
 });

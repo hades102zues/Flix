@@ -9,7 +9,7 @@ const container = (props) => (
 
 const styles = StyleSheet.create({
 	container : {
-		marginHorizontal : 20,
+		marginHorizontal : 15,
 	},
 });
 

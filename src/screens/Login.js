@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, StatusBar, Button, TouchableNativeFeedback} from 'react-native';
-import Container from '../components/Container/Container';
 
+import Container from '../components/Container/Container';
+import LoginForm from '../containers/LoginForm/LoginForm';
 
 const login = () => (
 	<Container>
@@ -16,14 +17,16 @@ const login = () => (
 			<Text>Enter your details to continue</Text>
 		</View>
 
-	{/*<LoginForm />*/ }
+	    <View style={styles.form}>
+	    	<LoginForm />
+	    </View>
 	</Container>
 );
 
 const styles = StyleSheet.create({
 	header: {
 		flexDirection: 'row',
-		marginTop : StatusBar.currentHeight + 60,
+		marginTop : StatusBar.currentHeight + 90,
 	},
 	welcomeText: {
 		width: '50%',
@@ -34,6 +37,12 @@ const styles = StyleSheet.create({
 		width: '50%', 
 		textAlign:'right',
 		color: '#ec407a'
+	},
+	form: {
+		borderWidth: 1,
+		borderColor: 'red',
+		marginTop: 100,
+		paddingVertical: 25
 	},
 
 });

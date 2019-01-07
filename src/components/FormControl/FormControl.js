@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const formControl = (props) => (
 	<View style={styles.formControl}>
-		<Icon name={props.icon} size={26} color="#ccc" style={{marginTop:9, marginRight:3}}/>
+		<Icon name={props.icon} size={26} color="#ccc" style={{marginTop:12, marginRight:3}}/>
 		<TextInput 
 			placeholder = {props.holder}
 			placeholderTextColor = "#ccc"
@@ -25,9 +25,9 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		width:'95%',
 		paddingLeft: 5,
-		marginBottom: 20,
-		height: 40,
-		fontWeight: '300'
+		marginBottom: 30,
+		height: 55,
+		fontWeight: '500'
 	}
 });
 

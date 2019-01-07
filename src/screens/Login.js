@@ -17,9 +17,12 @@ const login = () => (
 			<Text>Enter your details to continue</Text>
 		</View>
 
-	    <View style={styles.form}>
-	    	<LoginForm />
-	    </View>
+		<View style={styles.formCard}>
+			<View style={styles.form}>
+	    		<LoginForm />
+	    	</View>
+		</View>
+	    
 	</Container>
 );
 
@@ -38,8 +41,13 @@ const styles = StyleSheet.create({
 		textAlign:'right',
 		color: '#ec407a'
 	},
+	formCard:{
+		alignItems: 'center'
+	},
 	form: {
+		width:'90%',
 		borderWidth: 1,
+
 		borderColor: 'red',
 		marginTop: 100,
 		paddingVertical: 25

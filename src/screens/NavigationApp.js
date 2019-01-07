@@ -1,3 +1,4 @@
+import React from 'react';
 import {
 	createStackNavigator,
 	createBottomTabNavigator,
@@ -10,6 +11,8 @@ import ViewPageScreen from './ViewPage';
 import CheckoutScreen from './Checkout';
 import ConfirmPurchaseScreen from './ConfirmPurchase';
 import LoginScreen from './Login';
+
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 const HomeStack = createStackNavigator({
@@ -33,9 +36,25 @@ const CartStack = createStackNavigator({
 });
 
 const TabApp = createBottomTabNavigator({
-	Profile : ProfileScreen,
-	Home : HomeStack,
-	Cart : CartStack
+	Profile : {
+		screen: ProfileScreen,
+		navigationOptions : {
+			tabBarIcon : (props) => <Icon name="md-person" size={24} color={props.tintColor} />	
+		},
+		
+	},
+	Home : {
+		screen : HomeStack,
+		navigationOptions : {
+			tabBarIcon : (props) => <Icon name="md-home" size={24} color={props.tintColor} />	
+		},
+	},
+	Cart : { 
+		screen : CartStack,
+		navigationOptions : {
+			tabBarIcon : (props) => <Icon name="md-cart" size={24} color={props.tintColor} />	
+		},
+	},
 
 },
 {

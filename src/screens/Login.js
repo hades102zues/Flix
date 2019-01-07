@@ -21,8 +21,7 @@ const login = () => (
 			<View style={styles.form}>
 	    		<LoginForm />
 	    	</View>
-		</View>
-	    
+		</View>  
 	</Container>
 );
 
@@ -35,6 +34,7 @@ const styles = StyleSheet.create({
 		width: '50%',
 		fontWeight: '700',
 		fontSize: 34,
+		color:'#333'
 	},
 	authText : {
 		width: '50%', 

@@ -8,7 +8,7 @@ class LoginForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			formConfigs:{
+			loginFormConfigs:{
 				email: {
 					inputConfig : {
 						icon: 'md-mail',
@@ -24,12 +24,35 @@ class LoginForm extends Component {
 					value: ''
 				},
 			},
+			signupFormConfigs:{
+				mail: {
+					inputConfig : {
+						icon: 'md-mail',
+						placeholder: 'Email'
+					},
+					value: ''
+				},
+				password: {
+					inputConfig : {
+						icon: 'md-lock',
+						placeholder: 'Password'
+					},
+					value: ''
+				},
+				confirmPassword: {
+					inputConfig : {
+						icon: 'md-lock',
+						placeholder: 'Confirm Password'
+					},
+					value: ''
+				},
+			},
 		};
 	}
 
 	render() {
 
-		const formConfigs = this.state.formConfigs;
+		const formConfigs = (this.props.authState==='login') ? this.state.loginFormConfigs : this.state.signupFormConfigs;
 
 		const form = Object.keys(formConfigs).map( (inputName, i) => (
 				<FormControl 
@@ -42,7 +65,10 @@ class LoginForm extends Component {
 		return (
 			<React.Fragment>
 				{form}
-				<Button title="Login" onPress={()=>null}/>
+				<Button 
+				  title={ (this.props.authState==='login') ? "Login" : "Signup"} 
+				  onPress={()=>null}
+				/>
 			</React.Fragment>
 		);
 		

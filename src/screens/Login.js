@@ -1,29 +1,50 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, StyleSheet, StatusBar, Button, TouchableNativeFeedback} from 'react-native';
 
 import Container from '../components/Container/Container';
 import LoginForm from '../containers/LoginForm/LoginForm';
 
-const login = () => (
-	<Container>
-		<View style={styles.header}>
-			<Text style={styles.welcomeText}>Welcome Back,</Text>
-			<TouchableNativeFeedback onPress={ ()=> alert('hi')}>
-			<Text style={styles.authText}>Sign Up</Text>
-			</TouchableNativeFeedback>
-		</View>
+class Login extends Component {
 
-		<View>
-			<Text style={{color:"#ccc"}}>Enter your details to continue</Text>
-		</View>
+  constructor(props) {
+  	super(props);
+  	this.state = {
+  		isAuthStateLogin : true
+  	};
+  }
 
-		<View style={styles.formCard}>
-			<View style={styles.form}>
-	    		<LoginForm />
-	    	</View>
-		</View>  
-	</Container>
-);
+  toggleAuthState = () => {
+  	this.setState({isAuthStateLogin : !this.state.isAuthStateLogin});
+  }
+
+  render() {
+
+  	let authText = this.state.isAuthStateLogin === true ? 'SignUp' : 'Login';
+  	let authState = this.state.isAuthStateLogin === true ? 'login' : 'signup';
+
+  	return (
+  		<Container>
+			<View style={styles.header}>
+				<Text style={styles.welcomeText}>Welcome Back,</Text>
+
+				<TouchableNativeFeedback onPress={this.toggleAuthState}>
+					<Text style={styles.authText}>{authText}</Text>
+				</TouchableNativeFeedback>
+			</View>
+
+			<View>
+				<Text style={{color:"#ccc"}}>Enter your details to continue</Text>
+			</View>
+
+			<View style={styles.formCard}>
+				<View style={styles.form}>
+		    		<LoginForm authState={authState} />
+		    	</View>
+			</View>  
+		</Container>
+  	); 
+  }
+}
 
 const styles = StyleSheet.create({
 	header: {
@@ -52,6 +73,6 @@ const styles = StyleSheet.create({
 
 });
 
-export default login;
+export default Login;
 
 

@@ -42,33 +42,53 @@ class Home extends Component {
 	render() {
 		return (
 			<Container>
-				<ScrollView>
+				<ScrollView showsVerticalScrollIndicator={false}>
 					<HomeHeader />
-					{/*<View style={{ marginTop: 35 }}></View>*/}
+
+					{/*
+					could possible make this list below reflect what is in the search
+					and show a normal list if nothing is there 
+
+				*/}
 					<MovieList
-						movieListHeight={210}
+						movieListHeight={210} //unecessary
+						imageBoxHeight={210}
 						imageBoxWidth={140}
 						latestMoviesList={this.state.latestMovies}
 					/>
 					<View style={styles.favoriteSection}>
-						<Text style={{ fontSize: 22, marginBottom: 10 }}>
+						<Text
+							style={{
+								fontSize: 22,
+								marginBottom: 10,
+								color: "#333"
+							}}
+						>
 							User Favourites
 						</Text>
 
 						<MovieList
-							movieListHeight={130}
+							movieListHeight={130} //unecessary
+							imageBoxHeight={130}
 							imageBoxWidth={90}
 							latestMoviesList={this.state.popularMovies}
 						/>
 					</View>
 
 					<View style={styles.favoriteSection}>
-						<Text style={{ fontSize: 22, marginBottom: 10 }}>
+						<Text
+							style={{
+								fontSize: 22,
+								marginBottom: 10,
+								color: "#333"
+							}}
+						>
 							Top Rated
 						</Text>
 
 						<MovieList
-							movieListHeight={130}
+							movieListHeight={130} //unecessary
+							imageBoxHeight={130}
 							imageBoxWidth={90}
 							latestMoviesList={this.state.topRatedMovies}
 						/>

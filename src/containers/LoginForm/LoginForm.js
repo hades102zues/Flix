@@ -67,7 +67,7 @@ class LoginForm extends Component {
 				{form}
 				<Button 
 				  title={ (this.props.authState==='login') ? "Login" : "Signup"} 
-				  onPress={()=>null}
+				  onPress={()=>this.props.navigation.navigate('Tab')}
 				/>
 			</React.Fragment>
 		);

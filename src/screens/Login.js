@@ -38,7 +38,7 @@ class Login extends Component {
 
 			<View style={styles.formCard}>
 				<View style={styles.form}>
-		    		<LoginForm authState={authState} />
+		    		<LoginForm authState={authState} {...this.props}/>
 		    	</View>
 			</View>  
 		</Container>

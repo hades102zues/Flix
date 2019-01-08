@@ -1,28 +1,23 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button} from 'react-native';
-
+import React, { Component } from "react";
+import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
+import Container from "../components/Container/Container";
+import HomeHeader from "../components/HomeHeader/HomeHeader";
+import MovieList from "../components/MovieList/MovieList";
 
 class Home extends Component {
+	render() {
+		return (
+			<Container>
+				<ScrollView>
+					<HomeHeader />
+					{/*<View style={{ marginTop: 35 }}></View>*/}
+					<MovieList />
+				</ScrollView>
+			</Container>
+		);
+	}
+}
 
-  render() {
-	return (
-		<View style={styles.homeView}>
-			<Text>home</Text>
-		</View>
-	);
-  }
-
-} 
-
-
-const styles = StyleSheet.create({
-	homeView : {
-		flex : 1,
-		justifyContent : 'center',
-		alignItems : 'center'
-	},
-});
+const styles = StyleSheet.create({});
 
 export default Home;
-
-

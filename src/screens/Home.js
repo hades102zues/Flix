@@ -10,7 +10,9 @@ class Home extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			latestMovies: []
+			latestMovies: [],
+			popularMovies: [],
+			topRatedMovies: []
 		};
 	}
 	componentDidMount() {
@@ -20,6 +22,21 @@ class Home extends Component {
 			.then(response => response.json())
 			.then(list => this.setState({ latestMovies: list.results }))
 			.catch(err => alert("Error getting Latest Movies"));
+
+		fetch(
+			`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1
+`
+		)
+			.then(response => response.json())
+			.then(list => this.setState({ popularMovies: list.results }))
+			.catch(err => alert("Error getting Popular Movies"));
+
+		fetch(
+			`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`
+		)
+			.then(response => response.json())
+			.then(list => this.setState({ topRatedMovies: list.results }))
+			.catch(err => alert("Error getting Top Rated Movies"));
 	}
 
 	render() {
@@ -29,15 +46,44 @@ class Home extends Component {
 					<HomeHeader />
 					{/*<View style={{ marginTop: 35 }}></View>*/}
 					<MovieList
-						movieListHeight={190}
+						movieListHeight={210}
+						imageBoxWidth={140}
 						latestMoviesList={this.state.latestMovies}
 					/>
+					<View style={styles.favoriteSection}>
+						<Text style={{ fonstSize: 22, marginBottom: 10 }}>
+							User Favourites
+						</Text>
+
+						<MovieList
+							movieListHeight={120}
+							imageBoxWidth={90}
+							latestMoviesList={this.state.popularMovies}
+						/>
+					</View>
+
+					<View style={styles.favoriteSection}>
+						<Text style={{ fonstSize: 22, marginBottom: 10 }}>
+							Top Rated
+						</Text>
+
+						<MovieList
+							movieListHeight={130}
+							imageBoxWidth={110}
+							latestMoviesList={this.state.topRatedMovies}
+						/>
+					</View>
 				</ScrollView>
 			</Container>
 		);
 	}
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	favoriteSection: {
+		marginTop: 15,
+		paddingVertical: 10
+	}
+});
 
 export default Home;

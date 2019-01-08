@@ -11,7 +11,7 @@ class Home extends Component {
 				<ScrollView>
 					<HomeHeader />
 					{/*<View style={{ marginTop: 35 }}></View>*/}
-					<MovieList />
+					<MovieList movieListHeight={190} />
 				</ScrollView>
 			</Container>
 		);

@@ -50,6 +50,10 @@ class LoginForm extends Component {
 		};
 	}
 
+	/*todo
+		Implement the function to capture the user inputs
+		and test
+	*/
 	render() {
 
 		const formConfigs = (this.props.authState==='login') ? this.state.loginFormConfigs : this.state.signupFormConfigs;

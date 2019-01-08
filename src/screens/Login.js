@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 	authText : {
 		width: '50%', 
 		textAlign:'right',
-		color: '#ec407a'
+		color: '#ec407a',
 	},
 	formCard:{
 		alignItems: 'center'

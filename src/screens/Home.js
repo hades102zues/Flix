@@ -51,25 +51,25 @@ class Home extends Component {
 						latestMoviesList={this.state.latestMovies}
 					/>
 					<View style={styles.favoriteSection}>
-						<Text style={{ fonstSize: 22, marginBottom: 10 }}>
+						<Text style={{ fontSize: 22, marginBottom: 10 }}>
 							User Favourites
 						</Text>
 
 						<MovieList
-							movieListHeight={120}
+							movieListHeight={130}
 							imageBoxWidth={90}
 							latestMoviesList={this.state.popularMovies}
 						/>
 					</View>
 
 					<View style={styles.favoriteSection}>
-						<Text style={{ fonstSize: 22, marginBottom: 10 }}>
+						<Text style={{ fontSize: 22, marginBottom: 10 }}>
 							Top Rated
 						</Text>
 
 						<MovieList
 							movieListHeight={130}
-							imageBoxWidth={110}
+							imageBoxWidth={90}
 							latestMoviesList={this.state.topRatedMovies}
 						/>
 					</View>

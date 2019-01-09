@@ -15,7 +15,7 @@ class Checkout extends Component {
 	render() {
 		return (
 			<Container>
-				<ScrollView>
+				<ScrollView showsVerticalScrollIndicator={false}>
 					<Text style={styles.pageTitle}>Shopping Cart</Text>
 					<ProductList />
 					<Text style={styles.cost}>$X.XX</Text>
@@ -34,7 +34,7 @@ class Checkout extends Component {
 
 const styles = StyleSheet.create({
 	pageTitle: {
-		marginTop: StatusBar.currentHeight + 20,
+		marginTop: StatusBar.currentHeight + 10,
 		fontWeight: "300",
 		textAlign: "center",
 		fontSize: 30,

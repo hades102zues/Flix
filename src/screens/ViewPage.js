@@ -16,7 +16,7 @@ const viewPage = props => {
 	const voteCount = props.navigation.getParam("voteCount", null);
 	const rating = props.navigation.getParam("rating", null);
 
-	const movieCost = rating * 10 + 5;
+	const movieCost = rating * 1.75 + 5.0;
 
 	return (
 		<View style={styles.viewPageView}>
@@ -59,7 +59,7 @@ const viewPage = props => {
 							</View>
 						</View>
 
-						<Text style={styles.cost}>{movieCost}</Text>
+						<Text style={styles.cost}>${movieCost.toFixed(2)}</Text>
 
 						<View style={styles.buttonBox}>
 							<Button title="Add to Cart" onPress={() => null} />
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
 	},
 	movieFacts: {
 		flex: 3,
-		elevation: 5
+		elevation: 15
 	},
 	movieName: {
 		fontSize: 26,
@@ -109,11 +109,13 @@ const styles = StyleSheet.create({
 	cost: {
 		color: "#333",
 		fontSize: 30,
-		fontWeight: "500"
+		fontWeight: "500",
+		marginTop: 35,
+		textAlign: "center"
 	},
 	buttonBox: {
 		marginHorizontal: 30,
-		marginTop: 32,
+		marginTop: 17,
 		marginBottom: 10
 	}
 });

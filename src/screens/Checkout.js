@@ -34,8 +34,13 @@ class Checkout extends Component {
 					cost: 5.55,
 					posterPath: "/t0idiLMalKMj2pLsvqHrOM4LPdQ.jpg"
 				}
-			]
+			],
+			totalPrice: 0
 		};
+	}
+
+	componentDidMount() {
+		this.calculateProductTotal();
 	}
 
 	onClickDeleteHandler = itemId => {
@@ -45,7 +50,16 @@ class Checkout extends Component {
 			product => product.id !== itemId
 		);
 
-		this.setState({ productList: newProductList });
+		this.setState({ productList: newProductList }, () => {
+			this.calculateProductTotal();
+		});
+	};
+
+	calculateProductTotal = () => {
+		let total = 0.0;
+
+		for (let product of this.state.productList) total += product.cost;
+		this.setState({ totalPrice: total.toFixed(2) });
 	};
 
 	render() {
@@ -57,7 +71,9 @@ class Checkout extends Component {
 						productList={this.state.productList}
 						deleteHandler={this.onClickDeleteHandler}
 					/>
-					<Text style={styles.cost}>$X.XX</Text>
+					<Text style={styles.cost}>
+						{`$${this.state.totalPrice}`}
+					</Text>
 					<View style={styles.buttonBox}>
 						<Button
 							title="Checkout"

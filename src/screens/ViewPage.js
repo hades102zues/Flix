@@ -1,13 +1,22 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import {
+	View,
+	Text,
+	StyleSheet,
+	Image,
+	ScrollView,
+	Button
+} from "react-native";
 import Container from "../components/Container/Container";
 
 const viewPage = props => {
 	const imagePath = props.navigation.getParam("posterPath", null);
 	const movieName = props.navigation.getParam("movieName", null);
 	const description = props.navigation.getParam("description", null);
-	const voteCount = props.navigation.getParam("movieVoteCount", null);
+	const voteCount = props.navigation.getParam("voteCount", null);
 	const rating = props.navigation.getParam("rating", null);
+
+	const movieCost = rating * 10 + 5;
 
 	return (
 		<View style={styles.viewPageView}>
@@ -35,7 +44,9 @@ const viewPage = props => {
 							}}
 						>
 							<View style={styles.voters}>
-								<Text style={styles.voterMetric}>{rating}</Text>
+								<Text
+									style={styles.voterMetric}
+								>{`${rating} / 10`}</Text>
 								<Text
 									style={{
 										...styles.voterMetric,
@@ -43,12 +54,16 @@ const viewPage = props => {
 										borderLeftColor: "#ccc"
 									}}
 								>
-									ooffff
+									{`${voteCount} Reviews`}
 								</Text>
 							</View>
 						</View>
 
-						<Text style={styles.cost}>$X.XX</Text>
+						<Text style={styles.cost}>{movieCost}</Text>
+
+						<View style={styles.buttonBox}>
+							<Button title="Add to Cart" onPress={() => null} />
+						</View>
 					</ScrollView>
 				</Container>
 			</View>
@@ -95,6 +110,11 @@ const styles = StyleSheet.create({
 		color: "#333",
 		fontSize: 30,
 		fontWeight: "500"
+	},
+	buttonBox: {
+		marginHorizontal: 30,
+		marginTop: 32,
+		marginBottom: 10
 	}
 });
 

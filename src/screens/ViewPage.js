@@ -37,7 +37,7 @@ const viewPage = props => {
 					onPress={() => props.navigation.goBack()}
 				>
 					<View style={styles.iconBox}>
-						<Icon name="md-arrow-back" size={24} color="#EEEEEE" />
+						<Icon name="md-arrow-back" size={24} color="#333" />
 					</View>
 				</TouchableWithoutFeedback>
 			</View>
@@ -73,7 +73,11 @@ const viewPage = props => {
 						<Text style={styles.cost}>${movieCost.toFixed(2)}</Text>
 
 						<View style={styles.buttonBox}>
-							<Button title="Add to Cart" onPress={() => null} />
+							<Button
+								title="Add to Cart"
+								color="#00C853"
+								onPress={() => null}
+							/>
 						</View>
 					</ScrollView>
 				</Container>

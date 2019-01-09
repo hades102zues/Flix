@@ -5,9 +5,12 @@ import {
 	StyleSheet,
 	Image,
 	ScrollView,
-	Button
+	Button,
+	StatusBar,
+	TouchableWithoutFeedback
 } from "react-native";
 import Container from "../components/Container/Container";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const viewPage = props => {
 	const imagePath = props.navigation.getParam("posterPath", null);
@@ -30,7 +33,15 @@ const viewPage = props => {
 					resizeMode="cover"
 					style={{ flex: 1 }}
 				/>
+				<TouchableWithoutFeedback
+					onPress={() => props.navigation.goBack()}
+				>
+					<View style={styles.iconBox}>
+						<Icon name="md-arrow-back" size={24} color="#EEEEEE" />
+					</View>
+				</TouchableWithoutFeedback>
 			</View>
+
 			<View style={styles.movieFacts}>
 				<Container>
 					<ScrollView>
@@ -78,9 +89,15 @@ const styles = StyleSheet.create({
 	imageBox: {
 		flex: 1
 	},
+	iconBox: {
+		position: "absolute",
+		top: StatusBar.currentHeight + 10,
+		left: 10,
+		width: 40
+	},
 	movieFacts: {
 		flex: 3,
-		elevation: 15
+		elevation: 30
 	},
 	movieName: {
 		fontSize: 26,

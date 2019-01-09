@@ -12,12 +12,51 @@ import Container from "../components/Container/Container";
 import ProductList from "../components/ProductList/ProductList";
 
 class Checkout extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			productList: [
+				{
+					id: 424783,
+					title: "Aquaman",
+					cost: 7.5,
+					posterPath: "/5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg"
+				},
+				{
+					id: 405774,
+					title: "Bird Box",
+					cost: 7.55,
+					posterPath: "/rGfGfgL2pEPCfhIvqHXieXFn7gp.jpg"
+				},
+				{
+					id: 504172,
+					title: "The Mule",
+					cost: 5.55,
+					posterPath: "/t0idiLMalKMj2pLsvqHrOM4LPdQ.jpg"
+				}
+			]
+		};
+	}
+
+	onClickDeleteHandler = itemId => {
+		const productList = this.state.productList;
+
+		const newProductList = productList.filter(
+			product => product.id !== itemId
+		);
+
+		this.setState({ productList: newProductList });
+	};
+
 	render() {
 		return (
 			<Container>
 				<ScrollView showsVerticalScrollIndicator={false}>
 					<Text style={styles.pageTitle}>Shopping Cart</Text>
-					<ProductList />
+					<ProductList
+						productList={this.state.productList}
+						deleteHandler={this.onClickDeleteHandler}
+					/>
 					<Text style={styles.cost}>$X.XX</Text>
 					<View style={styles.buttonBox}>
 						<Button

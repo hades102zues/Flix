@@ -5,7 +5,9 @@ const product = props => (
 	<View style={styles.product}>
 		<View style={styles.imageBox}>
 			<Image
-				source={{ uri: props.posterPath }}
+				source={{
+					uri: `https://image.tmdb.org/t/p/w500/${props.posterPath}`
+				}}
 				height={null}
 				width={null}
 				style={{ flex: 1 }}
@@ -13,13 +15,15 @@ const product = props => (
 		</View>
 		<View style={styles.details}>
 			<Text style={styles.movieName}>{props.movieName}</Text>
-			<Text style={styles.cost}>{props.cost}</Text>
+			<Text style={styles.cost}>{`$${props.cost.toFixed(2)}`}</Text>
 			<View style={{ alignItems: "flex-end" }}>
 				<View style={styles.buttonBox}>
 					<Button
 						title="Delete"
 						color="#f44336"
-						onPress={() => null}
+						onPress={() => {
+							props.onDeleteButtonPress(props.movieId);
+						}}
 					/>
 				</View>
 			</View>

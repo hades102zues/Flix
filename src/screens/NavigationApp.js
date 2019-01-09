@@ -21,7 +21,12 @@ const HomeStack = createStackNavigator({
 			header: null
 		}
 	},
-	Viewer: ViewPageScreen
+	Viewer: {
+		screen: ViewPageScreen,
+		navigationOptions: {
+			header: null
+		}
+	}
 });
 
 const CartStack = createStackNavigator({

@@ -10,6 +10,7 @@ import {
 
 import Container from "../components/Container/Container";
 import ProductList from "../components/ProductList/ProductList";
+import Modal from "../components/Modal/Modal";
 
 class Checkout extends Component {
 	constructor(props) {
@@ -78,7 +79,11 @@ class Checkout extends Component {
 						<Button
 							title="Checkout"
 							color="#00C853"
-							onPress={() => null}
+							onPress={() =>
+								this.props.navigation.navigate(
+									"ConfirmPurchase"
+								)
+							}
 						/>
 					</View>
 				</ScrollView>

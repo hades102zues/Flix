@@ -1,21 +1,18 @@
 import React, { Component } from "react";
-import {
-	View,
-	Text,
-	StyleSheet,
-	StatusBar,
-	Button,
-	ScrollView
-} from "react-native";
+import { View, Text, StyleSheet, StatusBar, Button, Modal } from "react-native";
 
 const modal = () => {
 	return (
-		<View style={styles.modal}>
-			<Text>Modal</Text>
-		</View>
+		<Modal>
+			<View style={styles.modal}>
+				<Text>Modal</Text>
+			</View>
+		</Modal>
 	);
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	modal: {}
+});
 
 export default modal;

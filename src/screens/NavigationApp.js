@@ -36,7 +36,12 @@ const CartStack = createStackNavigator({
 			header: null
 		}
 	},
-	ConfirmPurchase: ConfirmPurchaseScreen
+	ConfirmPurchase: {
+		screen: ConfirmPurchaseScreen,
+		navigationOptions: {
+			title: "Confirm Purchase"
+		}
+	}
 });
 
 const TabApp = createBottomTabNavigator(
@@ -67,7 +72,7 @@ const TabApp = createBottomTabNavigator(
 		}
 	},
 	{
-		initialRouteName: "Home"
+		initialRouteName: "Cart"
 	}
 );
 

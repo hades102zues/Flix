@@ -20,13 +20,8 @@ const homeHeader = props => (
 				<Text style={styles.topBarRightText}>WishList</Text>
 			</View>
 		</View>
-		<View
-			style={{
-				flexDirection: "row",
-				justifyContent: "center",
-				marginTop: 20
-			}}
-		>
+
+		<View style={styles.searchArea}>
 			<TextInput
 				placeholder="..Search"
 				placeholderTextColor="#333"
@@ -35,11 +30,9 @@ const homeHeader = props => (
 					props.inputChanged(text);
 				}}
 			/>
-			<TouchableWithoutFeedback onPress={props.buttonClicked}>
-				<View style={styles.searchButton}>
-					<Icon name="md-search" size={28} color="white" />
-				</View>
-			</TouchableWithoutFeedback>
+			<View style={styles.searchButton}>
+				<Icon name="md-search" size={28} color="#333" />
+			</View>
 		</View>
 	</View>
 );
@@ -72,20 +65,22 @@ const styles = StyleSheet.create({
 		padding: 5,
 		borderRadius: 3
 	},
-	searchbar: {
-		width: "75%",
-		paddingLeft: 5,
-		marginTop: 15,
+	searchArea: {
+		flexDirection: "row",
+		marginTop: 20,
 		backgroundColor: "#ccc",
+		marginHorizontal: 20,
 		borderRadius: 4
 	},
+	searchbar: {
+		width: "85%",
+		paddingLeft: 5,
+		flex: 6
+	},
 	searchButton: {
-		width: "10%",
-		marginTop: 14,
-		backgroundColor: "#42a5f5",
+		flex: 1,
 		alignItems: "center",
-		borderRadius: 4,
-		elevation: 3
+		borderRadius: 4
 	}
 });
 

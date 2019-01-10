@@ -48,10 +48,9 @@ class Home extends Component {
 			}&page=1&include_adult=true`
 		)
 			.then(response => response.json())
-			.then(movieList => {
-				this.setState({ searchMovies: movieList.results });
-				console.log(movieList);
-			})
+			.then(movieList =>
+				this.setState({ searchMovies: movieList.results })
+			)
 			.catch(err => console.log(err));
 	};
 

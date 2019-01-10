@@ -5,10 +5,12 @@ import {
 	Touch,
 	StyleSheet,
 	StatusBar,
-	TextInput
+	TextInput,
+	TouchableWithoutFeedback
 } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 
-const homeHeader = () => (
+const homeHeader = props => (
 	<View style={styles.header}>
 		<View style={styles.topBar}>
 			<View style={styles.topBarLeft}>
@@ -18,12 +20,26 @@ const homeHeader = () => (
 				<Text style={styles.topBarRightText}>WishList</Text>
 			</View>
 		</View>
-		<View style={{ alignItems: "center", marginTop: 20 }}>
+		<View
+			style={{
+				flexDirection: "row",
+				justifyContent: "center",
+				marginTop: 20
+			}}
+		>
 			<TextInput
 				placeholder="..Search"
 				placeholderTextColor="#333"
 				style={styles.searchbar}
+				onChangeText={text => {
+					props.inputChanged(text);
+				}}
 			/>
+			<TouchableWithoutFeedback onPress={props.buttonClicked}>
+				<View style={styles.searchButton}>
+					<Icon name="md-search" size={28} color="white" />
+				</View>
+			</TouchableWithoutFeedback>
 		</View>
 	</View>
 );
@@ -57,11 +73,19 @@ const styles = StyleSheet.create({
 		borderRadius: 3
 	},
 	searchbar: {
-		width: "100%",
+		width: "75%",
 		paddingLeft: 5,
 		marginTop: 15,
 		backgroundColor: "#ccc",
 		borderRadius: 4
+	},
+	searchButton: {
+		width: "10%",
+		marginTop: 14,
+		backgroundColor: "#42a5f5",
+		alignItems: "center",
+		borderRadius: 4,
+		elevation: 3
 	}
 });
 

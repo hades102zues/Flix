@@ -12,7 +12,8 @@ class Home extends Component {
 		this.state = {
 			latestMovies: [],
 			popularMovies: [],
-			topRatedMovies: []
+			topRatedMovies: [],
+			searchInput: ""
 		};
 	}
 	componentDidMount() {
@@ -39,11 +40,21 @@ class Home extends Component {
 			.catch(err => alert("Error getting Top Rated Movies"));
 	}
 
+	onSearchButtonPressHandler = () => {};
+
+	onInputChangeHandler = value => {
+		this.setState({ searchInput: value });
+	};
+
 	render() {
+		console.log(this.state.searchInput);
 		return (
 			<Container>
 				<ScrollView showsVerticalScrollIndicator={false}>
-					<HomeHeader />
+					<HomeHeader
+						inputChanged={this.onInputChangeHandler}
+						buttonClicked={this.onSearchButtonPressHandler}
+					/>
 
 					{/*
 					could possible make this list below reflect what is in the search

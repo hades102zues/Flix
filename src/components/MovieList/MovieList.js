@@ -11,7 +11,7 @@ class MovieList extends Component {
 	render() {
 		return (
 			<FlatList
-				data={this.props.latestMoviesList}
+				data={this.props.moviesList}
 				keyExtractor={item => item.id.toString()}
 				horizontal
 				renderItem={({ item }) => (

@@ -13,6 +13,7 @@ class Home extends Component {
 			latestMovies: [],
 			popularMovies: [],
 			topRatedMovies: [],
+			searchMovies: [],
 			searchInput: ""
 		};
 	}
@@ -40,14 +41,25 @@ class Home extends Component {
 			.catch(err => alert("Error getting Top Rated Movies"));
 	}
 
-	onSearchButtonPressHandler = () => {};
+	onSearch = () => {
+		fetch(
+			`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${
+				this.state.searchInput
+			}&page=1&include_adult=true`
+		)
+			.then(response => response.json())
+			.then(movieList => {
+				this.setState({ searchMovies: movieList.results });
+				console.log(movieList);
+			})
+			.catch(err => console.log(err));
+	};
 
 	onInputChangeHandler = value => {
-		this.setState({ searchInput: value });
+		this.setState({ searchInput: value }, this.onSearch);
 	};
 
 	render() {
-		console.log(this.state.searchInput);
 		return (
 			<Container>
 				<ScrollView showsVerticalScrollIndicator={false}>
@@ -65,7 +77,11 @@ class Home extends Component {
 						movieListHeight={210} //unecessary
 						imageBoxHeight={210}
 						imageBoxWidth={140}
-						latestMoviesList={this.state.latestMovies}
+						moviesList={
+							this.state.searchInput !== ""
+								? this.state.searchMovies
+								: this.state.latestMovies
+						}
 					/>
 					<View style={styles.favoriteSection}>
 						<Text
@@ -82,7 +98,7 @@ class Home extends Component {
 							movieListHeight={130} //unecessary
 							imageBoxHeight={130}
 							imageBoxWidth={90}
-							latestMoviesList={this.state.popularMovies}
+							moviesList={this.state.popularMovies}
 						/>
 					</View>
 
@@ -101,7 +117,7 @@ class Home extends Component {
 							movieListHeight={130} //unecessary
 							imageBoxHeight={130}
 							imageBoxWidth={90}
-							latestMoviesList={this.state.topRatedMovies}
+							moviesList={this.state.topRatedMovies}
 						/>
 					</View>
 				</ScrollView>

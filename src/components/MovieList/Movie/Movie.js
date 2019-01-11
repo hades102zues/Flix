@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
 
 		borderRadius: 3,
 		marginRight: 10,
-		elevation: 3
+		elevation: 3,
+		backgroundColor: "#ccc"
 	}
 });
 

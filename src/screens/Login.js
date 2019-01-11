@@ -5,7 +5,8 @@ import {
 	StyleSheet,
 	StatusBar,
 	Button,
-	TouchableNativeFeedback
+	TouchableNativeFeedback,
+	ScrollView
 } from "react-native";
 
 import Container from "../components/Container/Container";
@@ -31,25 +32,27 @@ class Login extends Component {
 
 		return (
 			<Container>
-				<View style={styles.header}>
-					<Text style={styles.welcomeText}>Welcome Back,</Text>
+				<ScrollView>
+					<View style={styles.header}>
+						<Text style={styles.welcomeText}>Welcome Back,</Text>
 
-					<TouchableNativeFeedback onPress={this.toggleAuthState}>
-						<Text style={styles.authText}>{authText}</Text>
-					</TouchableNativeFeedback>
-				</View>
-
-				<View>
-					<Text style={{ color: "#ccc" }}>
-						Enter your details to continue
-					</Text>
-				</View>
-
-				<View style={styles.formCard}>
-					<View style={styles.form}>
-						<LoginForm authState={authState} {...this.props} />
+						<TouchableNativeFeedback onPress={this.toggleAuthState}>
+							<Text style={styles.authText}>{authText}</Text>
+						</TouchableNativeFeedback>
 					</View>
-				</View>
+
+					<View>
+						<Text style={{ color: "#ccc" }}>
+							Enter your details to continue
+						</Text>
+					</View>
+					{/*error messg goes here*/}
+					<View style={styles.formCard}>
+						<View style={styles.form}>
+							<LoginForm authState={authState} {...this.props} />
+						</View>
+					</View>
+				</ScrollView>
 			</Container>
 		);
 	}
@@ -71,6 +74,11 @@ const styles = StyleSheet.create({
 		textAlign: "right",
 		color: "#ec407a"
 	},
+	errorMessage: {
+		backgroundColor: "#e53935",
+		position: "relative",
+		zIndex: 3
+	},
 	formCard: {
 		alignItems: "center"
 	},
@@ -82,3 +90,6 @@ const styles = StyleSheet.create({
 });
 
 export default Login;
+// <View style={styles.errorMessage}>
+// 	<Text>Error</Text>
+// </View>

@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, StatusBar, Image } from "react-native";
+import {
+	View,
+	Text,
+	StyleSheet,
+	StatusBar,
+	Image,
+	ScrollView
+} from "react-native";
 import ProfileBox from "../components/ProfileBox/ProfileBox";
 
 const profile = () => {
@@ -9,7 +16,14 @@ const profile = () => {
 				<Text style={styles.profileText}>Profile</Text>
 			</View>
 			<View style={styles.floatBox}>
-				<ProfileBox />
+				<ProfileBox
+					name="Joshua Wiggins"
+					email="joshua_kar@hotmail.com"
+					cash="X.XX"
+				/>
+				<ScrollView contentContainerStyle={styles.scrollView}>
+					<View style={{ flex: 1, flexWrap: "wrap" }} />
+				</ScrollView>
 			</View>
 			<View style={styles.secondHalf} />
 		</View>
@@ -38,7 +52,12 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		top: "22%"
 	},
-
+	scrollView: {
+		height: 240,
+		marginTop: 10,
+		elevation: 2,
+		borderRadius: 5
+	},
 	secondHalf: {
 		flex: 2
 	}

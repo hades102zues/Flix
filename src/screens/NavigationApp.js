@@ -39,7 +39,11 @@ const CartStack = createStackNavigator({
 	ConfirmPurchase: {
 		screen: ConfirmPurchaseScreen,
 		navigationOptions: {
-			title: "Confirm Purchase"
+			title: "Confirm Purchase",
+			headerTintColor: "white",
+			headerStyle: {
+				backgroundColor: "#80cbc4"
+			}
 		}
 	}
 });

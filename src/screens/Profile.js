@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 	},
 	profileBox: {
 		flex: 1,
-		backgroundColor: "blue",
+		backgroundColor: "#1e88e5",
 		paddingHorizontal: 15
 	},
 	profileText: {

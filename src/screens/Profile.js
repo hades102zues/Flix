@@ -5,10 +5,17 @@ import {
 	StyleSheet,
 	StatusBar,
 	Image,
-	ScrollView
+	ScrollView,
+	Dimensions
 } from "react-native";
 import ProfileBox from "../components/ProfileBox/ProfileBox";
+
 import MovieList from "../components/MovieList/MovieList";
+import {
+	screenListener,
+	screenHeight,
+	screenHeightPercentage
+} from "../UI/ScreenApi/ScreenApi";
 
 class Profile extends Component {
 	constructor(props) {
@@ -30,27 +37,49 @@ class Profile extends Component {
 			]
 		};
 	}
+
+	componentDidMount() {
+		screenListener(this, this.state.screenChange);
+	}
+
 	render() {
 		return (
 			<View style={styles.profileView}>
 				<View style={styles.profileBox}>
 					<Text style={styles.profileText}>Profile</Text>
 				</View>
-				<View style={styles.floatBox}>
-					<ProfileBox
-						name="Joshua Wiggins"
-						email="joshua_kar@hotmail.com"
-						cash="X.XX"
-					/>
-					<View style={styles.scrollView}>
-						<Text>Purchased:</Text>
-						<MovieList
-							imageBoxHeight={210}
-							imageBoxWidth={140}
-							moviesList={this.state.purchases}
-							blockScreenAccess
+				<View
+					style={{
+						...styles.floatBox,
+						height:
+							screenHeight < 500
+								? screenHeightPercentage(55)
+								: null,
+
+						top:
+							screenHeight > 600
+								? screenHeightPercentage(10)
+								: screenHeight > 400
+								? screenHeightPercentage(22)
+								: screenHeightPercentage(26)
+					}}
+				>
+					<ScrollView contentContainerStyle={styles.scrollView}>
+						<ProfileBox
+							name="Joshua Wiggins"
+							email="joshua_kar@hotmail.com"
+							cash="X.XX"
 						/>
-					</View>
+						<View style={styles.scrollView}>
+							<Text>Purchased:</Text>
+							<MovieList
+								imageBoxHeight={210}
+								imageBoxWidth={140}
+								moviesList={this.state.purchases}
+								blockScreenAccess
+							/>
+						</View>
+					</ScrollView>
 				</View>
 				<View style={styles.secondHalf} />
 			</View>
@@ -77,16 +106,16 @@ const styles = StyleSheet.create({
 	floatBox: {
 		width: "100%",
 		paddingHorizontal: 15,
-		position: "absolute",
-		top: "22%"
+		position: "absolute"
 	},
-	scrollView: {
-		height: 240,
-		marginTop: 10
-	},
+	scrollView: {},
 	secondHalf: {
-		flex: 2
+		flex: screenHeight > 600 ? 4 : 2
 	}
 });
 
 export default Profile;
+
+//an outer view with a fixed height, D
+// the content generated in the scrollview must exceed D
+//

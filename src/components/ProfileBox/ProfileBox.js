@@ -1,5 +1,18 @@
 import React from "react";
-import { View, Text, StyleSheet, StatusBar, Image } from "react-native";
+import {
+	View,
+	Text,
+	StyleSheet,
+	StatusBar,
+	Image,
+	Dimensions
+} from "react-native";
+
+import {
+	screenListener,
+	screenHeight,
+	screenHeightPercentage
+} from "../../UI/ScreenApi/ScreenApi";
 
 const profileBox = props => (
 	<View style={styles.userDetails}>
@@ -21,12 +34,21 @@ const profileBox = props => (
 					style={{
 						fontWeight: "bold",
 						color: "#333",
-						fontSize: 20
+						fontSize:
+							Dimensions.get("window").height > 600 ? 40 : 20
 					}}
 				>
 					{props.name}
 				</Text>
-				<Text style={{ color: "#ccc" }}>{props.email}</Text>
+				<Text
+					style={{
+						color: "#ccc",
+						fontSize:
+							Dimensions.get("window").height > 600 ? 20 : null
+					}}
+				>
+					{props.email}
+				</Text>
 			</View>
 		</View>
 
@@ -38,13 +60,12 @@ const styles = StyleSheet.create({
 	userDetails: {
 		backgroundColor: "#eeeeee",
 		borderRadius: 5,
-		paddingHorizontal: 5,
-		paddingVertical: 5,
+		padding: 5,
 		elevation: 5
 	},
 	imageBox: {
 		backgroundColor: "#ccc",
-		height: 65,
+		height: screenHeight > 600 ? screenHeightPercentage(10) : null,
 		flex: 1,
 		borderRadius: 3,
 		marginRight: 10
@@ -57,7 +78,8 @@ const styles = StyleSheet.create({
 		paddingTop: 5,
 		width: "100%",
 		borderTopColor: "#ccc",
-		borderTopWidth: 1
+		borderTopWidth: 1,
+		fontSize: screenHeight > 600 ? 20 : null
 	}
 });
 

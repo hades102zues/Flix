@@ -34,6 +34,23 @@ class Checkout extends Component {
 					title: "The Mule",
 					cost: 5.55,
 					posterPath: "/t0idiLMalKMj2pLsvqHrOM4LPdQ.jpg"
+				},
+				{
+					id: 424783,
+					title: "Aquaman",
+					cost: 7.5,
+					posterPath: "/5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg"
+				},
+				{
+					id: 405774,
+					title: "Bird Box",
+					cost: 7.55,
+					posterPath: "/rGfGfgL2pEPCfhIvqHXieXFn7gp.jpg"
+				},
+				{
+					id: 504172,
+					title: "The Mule",
+					cost: 5.55
 				}
 			],
 			totalPrice: 0

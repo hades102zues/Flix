@@ -2,9 +2,15 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import Product from "./Product/Product";
 
+import {
+	screenListener,
+	screenHeight,
+	screenHeightPercentage
+} from "../../UI/ScreenApi/ScreenApi";
+
 const productList = props => {
 	return (
-		<View style={styles.productView}>
+		<ScrollView contentContainerStyle={styles.productView}>
 			<FlatList
 				data={props.productList}
 				renderItem={({ item }) => (
@@ -18,13 +24,16 @@ const productList = props => {
 				)}
 				keyExtractor={item => item.id.toString()}
 			/>
-		</View>
+		</ScrollView>
 	);
 };
 
 const styles = StyleSheet.create({
 	productView: {
-		height: 280
+		height:
+			screenHeight > 600
+				? screenHeightPercentage(70)
+				: screenHeightPercentage(50)
 	},
 	productList: {
 		marginTop: 20,

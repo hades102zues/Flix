@@ -60,16 +60,16 @@ class Profile extends Component {
 							screenHeight > 600
 								? screenHeightPercentage(10)
 								: screenHeight > 400
-								? screenHeightPercentage(22)
+								? screenHeightPercentage(18)
 								: screenHeightPercentage(26)
 					}}
 				>
+					<ProfileBox
+						name="Joshua Wiggins"
+						email="joshua_kar@hotmail.com"
+						cash="X.XX"
+					/>
 					<ScrollView contentContainerStyle={styles.scrollView}>
-						<ProfileBox
-							name="Joshua Wiggins"
-							email="joshua_kar@hotmail.com"
-							cash="X.XX"
-						/>
 						<View style={styles.scrollView}>
 							<Text>Purchased:</Text>
 							<MovieList
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 15,
 		position: "absolute"
 	},
-	scrollView: {},
+	scrollView: { marginTop: 10 },
 	secondHalf: {
 		flex: screenHeight > 600 ? 4 : 2
 	}

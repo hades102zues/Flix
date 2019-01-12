@@ -18,7 +18,7 @@ export const screenListener = that =>
 		that.setState({ screen: 1 });
 	});
 
-//requires an elemtn to be added to state to act as a force update
+//automatically merges an object to state to force an update
 //requires the lister to be called with this, triggerelemnt
 //all dynamics must be placed directly in style objext and not in object created
 //in stylesheet

@@ -10,7 +10,12 @@ import {
 
 import Container from "../components/Container/Container";
 import ProductList from "../components/ProductList/ProductList";
-import Modal from "../components/Modal/Modal";
+
+import {
+	screenListener,
+	screenHeight,
+	screenHeightPercentage
+} from "../UI/ScreenApi/ScreenApi";
 
 class Checkout extends Component {
 	constructor(props) {
@@ -59,6 +64,7 @@ class Checkout extends Component {
 
 	componentDidMount() {
 		this.calculateProductTotal();
+		screenListener(this);
 	}
 
 	onClickDeleteHandler = itemId => {
@@ -85,10 +91,20 @@ class Checkout extends Component {
 			<Container>
 				<ScrollView showsVerticalScrollIndicator={false}>
 					<Text style={styles.pageTitle}>Shopping Cart</Text>
-					<ProductList
-						productList={this.state.productList}
-						deleteHandler={this.onClickDeleteHandler}
-					/>
+					<View
+						style={{
+							height:
+								screenHeight < 400
+									? screenHeightPercentage(25)
+									: screenHeightPercentage(45)
+						}}
+					>
+						<ProductList
+							productList={this.state.productList}
+							deleteHandler={this.onClickDeleteHandler}
+						/>
+					</View>
+
 					<Text style={styles.cost}>
 						{`$${this.state.totalPrice}`}
 					</Text>

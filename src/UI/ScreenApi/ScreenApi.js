@@ -11,7 +11,7 @@ export const screenHeightPercentage = perc => {
 	return PixelRatio.roundToNearestPixel(screenHeight * (perc / 100));
 };
 
-export const screenListener = (that, trigger) =>
+export const screenListener = that =>
 	Dimensions.addEventListener("change", () => {
 		screenHeight = Dimensions.get("window").height;
 		screenWidth = Dimensions.get("window").width;

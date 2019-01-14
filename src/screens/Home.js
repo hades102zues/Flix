@@ -12,7 +12,9 @@ class Home extends Component {
 		this.state = {
 			latestMovies: [],
 			popularMovies: [],
-			topRatedMovies: []
+			topRatedMovies: [],
+			searchMovies: [],
+			searchInput: ""
 		};
 	}
 	componentDidMount() {
@@ -39,11 +41,31 @@ class Home extends Component {
 			.catch(err => alert("Error getting Top Rated Movies"));
 	}
 
+	onSearch = () => {
+		fetch(
+			`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${
+				this.state.searchInput
+			}&page=1&include_adult=true`
+		)
+			.then(response => response.json())
+			.then(movieList =>
+				this.setState({ searchMovies: movieList.results })
+			)
+			.catch(err => console.log(err));
+	};
+
+	onInputChangeHandler = value => {
+		this.setState({ searchInput: value }, this.onSearch);
+	};
+
 	render() {
 		return (
 			<Container>
 				<ScrollView showsVerticalScrollIndicator={false}>
-					<HomeHeader />
+					<HomeHeader
+						inputChanged={this.onInputChangeHandler}
+						buttonClicked={this.onSearchButtonPressHandler}
+					/>
 
 					{/*
 					could possible make this list below reflect what is in the search
@@ -54,7 +76,11 @@ class Home extends Component {
 						movieListHeight={210} //unecessary
 						imageBoxHeight={210}
 						imageBoxWidth={140}
-						latestMoviesList={this.state.latestMovies}
+						moviesList={
+							this.state.searchInput !== ""
+								? this.state.searchMovies
+								: this.state.latestMovies
+						}
 					/>
 					<View style={styles.favoriteSection}>
 						<Text
@@ -71,7 +97,7 @@ class Home extends Component {
 							movieListHeight={130} //unecessary
 							imageBoxHeight={130}
 							imageBoxWidth={90}
-							latestMoviesList={this.state.popularMovies}
+							moviesList={this.state.popularMovies}
 						/>
 					</View>
 
@@ -90,7 +116,7 @@ class Home extends Component {
 							movieListHeight={130} //unecessary
 							imageBoxHeight={130}
 							imageBoxWidth={90}
-							latestMoviesList={this.state.topRatedMovies}
+							moviesList={this.state.topRatedMovies}
 						/>
 					</View>
 				</ScrollView>

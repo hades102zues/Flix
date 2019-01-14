@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import NavigationApp from "./src/screens/NavigationApp";
 import { useScreens } from "react-native-screens";
 
-useScreens();
+//useScreens();
 
 export default class App extends React.Component {
 	render() {

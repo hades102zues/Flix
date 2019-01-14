@@ -2,34 +2,30 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import Product from "./Product/Product";
 
+import {
+	screenListener,
+	screenHeight,
+	screenHeightPercentage
+} from "../../UI/ScreenApi/ScreenApi";
+
 const productList = props => {
 	return (
-		<View style={styles.productView}>
-			<FlatList
-				data={props.productList}
-				renderItem={({ item }) => (
-					<Product
-						movieId={item.id}
-						movieName={item.title}
-						cost={item.cost}
-						posterPath={item.posterPath}
-						onDeleteButtonPress={props.deleteHandler}
-					/>
-				)}
-				keyExtractor={item => item.id.toString()}
-			/>
-		</View>
+		<FlatList
+			data={props.productList}
+			renderItem={({ item }) => (
+				<Product
+					movieId={item.id}
+					movieName={item.title}
+					cost={item.cost}
+					posterPath={item.posterPath}
+					onDeleteButtonPress={props.deleteHandler}
+				/>
+			)}
+			keyExtractor={item => item.id.toString()}
+		/>
 	);
 };
 
-const styles = StyleSheet.create({
-	productView: {
-		height: 280
-	},
-	productList: {
-		marginTop: 20,
-		height: 260
-	}
-});
+const styles = StyleSheet.create({});
 
 export default productList;

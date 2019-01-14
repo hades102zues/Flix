@@ -11,12 +11,11 @@ class MovieList extends Component {
 	render() {
 		return (
 			<FlatList
-				data={this.props.latestMoviesList}
+				data={this.props.moviesList}
 				keyExtractor={item => item.id.toString()}
 				horizontal
 				renderItem={({ item }) => (
 					<Movie
-						uri="https://images.pexels.com/photos/264146/pexels-photo-264146.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
 						key={item.id}
 						imageBoxWidth={this.props.imageBoxWidth}
 						imageBoxHeight={this.props.imageBoxHeight}
@@ -26,6 +25,7 @@ class MovieList extends Component {
 						rating={item.vote_average}
 						imagePath={item.poster_path}
 						description={item.overview}
+						blockAccess={this.props.blockScreenAccess}
 					/>
 				)}
 			/>

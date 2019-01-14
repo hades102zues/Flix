@@ -11,16 +11,18 @@ import { withNavigation } from "react-navigation";
 
 const movie = props => (
 	<TouchableWithoutFeedback
-		onPress={() =>
-			props.navigation.navigate("Viewer", {
-				movieId: props.movieId,
-				movieName: props.movieName,
-				voteCount: props.movieVoteCount,
-				rating: props.rating,
-				posterPath: props.imagePath,
-				description: props.description
-			})
-		}
+		onPress={() => {
+			!props.blockAccess
+				? props.navigation.navigate("Viewer", {
+						movieId: props.movieId,
+						movieName: props.movieName,
+						voteCount: props.movieVoteCount,
+						rating: props.rating,
+						posterPath: props.imagePath,
+						description: props.description
+				  })
+				: null;
+		}}
 	>
 		<View
 			style={{
@@ -48,7 +50,8 @@ const styles = StyleSheet.create({
 
 		borderRadius: 3,
 		marginRight: 10,
-		elevation: 3
+		elevation: 3,
+		backgroundColor: "#ccc"
 	}
 });
 

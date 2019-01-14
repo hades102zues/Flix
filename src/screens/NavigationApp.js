@@ -36,7 +36,16 @@ const CartStack = createStackNavigator({
 			header: null
 		}
 	},
-	ConfirmPurchase: ConfirmPurchaseScreen
+	ConfirmPurchase: {
+		screen: ConfirmPurchaseScreen,
+		navigationOptions: {
+			title: "Confirm Purchase",
+			headerTintColor: "white",
+			headerStyle: {
+				backgroundColor: "#80cbc4"
+			}
+		}
+	}
 });
 
 const TabApp = createBottomTabNavigator(
@@ -67,7 +76,7 @@ const TabApp = createBottomTabNavigator(
 		}
 	},
 	{
-		initialRouteName: "Cart"
+		initialRouteName: "Profile"
 	}
 );
 
@@ -77,7 +86,7 @@ const EntryStack = createStackNavigator(
 		Tab: TabApp
 	},
 	{
-		initialRouteName: "Tab",
+		initialRouteName: "Login",
 		defaultNavigationOptions: {
 			header: null
 		}

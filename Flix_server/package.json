@@ -1,0 +1,20 @@
+{
+  "name": "flix",
+  "version": "1.0.0",
+  "description": "This server connects to the Flix  RN app ",
+  "main": "server.js",
+  "author": "Joshua Wiggins",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}

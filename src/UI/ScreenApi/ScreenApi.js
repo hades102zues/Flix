@@ -19,6 +19,6 @@ export const screenListener = that =>
 	});
 
 //automatically merges an object to state to force an update
-//requires the lister to be called with this, triggerelemnt
-//all dynamics must be placed directly in style objext and not in object created
+//place the follow function call in component did mount : screenListener(this);
+//all dynamics must be placed directly in style object and not in object created
 //in stylesheet

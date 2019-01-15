@@ -14,13 +14,16 @@ router.post(
 		body("password")
 			.isLength({ min: 5 })
 			.withMessage(
-				"Please enter a password that is atleast 5 characters long"
+				"Please enter a password that is atleast 5 characters long."
 			),
 		body("confirmPassword").custom((value, { req }) => {
-			if (value !== req.body.password)
+			if (value !== req.body.password) {
 				throw new Error(
 					"Check your Passwords. Both Passwords entered must Match!"
 				);
+			} else {
+				return true;
+			}
 		})
 	],
 	loginControllers.postSignup

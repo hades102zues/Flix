@@ -9,6 +9,7 @@ exports.postSignup = (req, res, next) => {
 
 	//check to ensure user details are valid
 	if (!validationResult(req).isEmpty()) {
+		console.log(validationErrors);
 		const validationMessages = validationErrors.map(
 			validate => validate.msg
 		);
@@ -17,8 +18,10 @@ exports.postSignup = (req, res, next) => {
 		});
 	}
 
+	const emailInLowerCase = req.body.email.toLowerCase();
+
 	//Process to add user to db
-	User.find({ email: req.body.email }, (err, result) => {
+	User.find({ email: emailInLowerCase }, (err, result) => {
 		//check for existing user
 		if (result.length) {
 			return res.status(500).json({
@@ -32,13 +35,13 @@ exports.postSignup = (req, res, next) => {
 			.then(hash => {
 				const user = User({
 					name: req.body.name,
-					email: req.body.email,
+					email: emailInLowerCase,
 					password: hash
 				});
 				user.save(() =>
 					//send jwt
 					jwt.sign(
-						{ email: req.body.email },
+						{ email: emailInLowerCase },
 						SECRET,
 						(err, token) => {
 							return res
@@ -53,8 +56,10 @@ exports.postSignup = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
+	const emailInLowerCase = req.body.email.toLowerCase();
+
 	//check for existence of user
-	User.find({ email: req.body.email }, (err, result) => {
+	User.find({ email: emailInLowerCase }, (err, result) => {
 		//no user found
 		if (!result.length) {
 			return res
@@ -69,7 +74,7 @@ exports.postLogin = (req, res, next) => {
 				if (match) {
 					//create jwt
 					jwt.sign(
-						{ email: req.body.email },
+						{ email: emailInLowerCase },
 						SECRET,
 						(err, token) => {
 							return res

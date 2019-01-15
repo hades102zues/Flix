@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator/check");
 const bcrypt = require("bcryptjs");
-
+const jwt = require("jsonwebtoken");
+const SECRET = "Kil3rQue3nbiT5D4Dust";
 const User = require("../models/user");
 
 exports.postSignup = (req, res, next) => {
@@ -35,7 +36,17 @@ exports.postSignup = (req, res, next) => {
 					password: hash
 				});
 				user.save(() =>
-					res.status(201).json({ message: "User created" })
+					//send jwt
+					jwt.sign(
+						{ email: req.body.email },
+						SECRET,
+						{},
+						(err, token) => {
+							return res
+								.status(201)
+								.json({ message: "User created", token });
+						}
+					)
 				);
 			})
 			.catch(err => next(err));
@@ -58,7 +69,16 @@ exports.postLogin = (req, res, next) => {
 			.then(match => {
 				if (match) {
 					//create jwt
-					res.status(200).json({ message: "Login IN" });
+					jwt.sign(
+						{ email: req.body.email },
+						SECRET,
+						{},
+						(err, token) => {
+							return res
+								.status(200)
+								.json({ message: "Logged In", token });
+						}
+					);
 				} else {
 					return res.status(500).json({
 						message: "Incorrect email or password entered"
@@ -67,7 +87,4 @@ exports.postLogin = (req, res, next) => {
 			})
 			.catch(() => console("Error at comparing hash"));
 	});
-
-	//no password match then give error check either passowrd or email
-	//if exist then define a jwt token
 };

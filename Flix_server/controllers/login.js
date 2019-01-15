@@ -65,7 +65,7 @@ exports.postLogin = (req, res, next) => {
 					});
 				}
 			})
-			.catch(() => "Error at comparing hash");
+			.catch(() => console("Error at comparing hash"));
 	});
 
 	//no password match then give error check either passowrd or email

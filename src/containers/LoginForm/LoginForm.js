@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import FormControl from "../../components/FormControl/FormControl";
 import { View, StyleSheet, Button, Text } from "react-native";
 
+const BASE_URL = "http://192.168.1.5:3000";
+
 class LoginForm extends Component {
 	constructor(props) {
 		super(props);
@@ -90,7 +92,7 @@ class LoginForm extends Component {
 	*/
 	onButtonPressHandler = () => {
 		if (this.props.authState === "login") {
-			fetch("http://192.168.1.5:3000/login", {
+			fetch(`${BASE_URL}/login`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
@@ -106,7 +108,7 @@ class LoginForm extends Component {
 				})
 				.catch(err => console.log(err));
 		} else {
-			fetch("http://192.168.1.5:3000/signup", {
+			fetch(`${BASE_URL}/signup`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({

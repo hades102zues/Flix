@@ -43,5 +43,31 @@ exports.postSignup = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
-	res.send("hi");
+	//check for existence of user
+	User.find({ email: req.body.email }, (err, result) => {
+		//no user found
+		if (!result.length) {
+			return res
+				.status(500)
+				.json({ message: "Incorrect email or password entered" });
+		}
+
+		//user exists now compare password against hash
+		bcrypt
+			.compare(req.body.password, result[0].password)
+			.then(match => {
+				if (match) {
+					//create jwt
+					res.status(200).json({ message: "Login IN" });
+				} else {
+					return res.status(500).json({
+						message: "Incorrect email or password entered"
+					});
+				}
+			})
+			.catch(() => "Error at comparing hash");
+	});
+
+	//no password match then give error check either passowrd or email
+	//if exist then define a jwt token
 };

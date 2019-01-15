@@ -23,6 +23,13 @@ class LoginForm extends Component {
 				}
 			},
 			signupFormConfigs: {
+				name: {
+					inputConfig: {
+						icon: "md-person",
+						placeholder: "Full Name"
+					},
+					value: ""
+				},
 				email: {
 					inputConfig: {
 						icon: "md-mail",
@@ -103,6 +110,7 @@ class LoginForm extends Component {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
+					name: this.state.signupFormConfigs.name.value,
 					email: this.state.signupFormConfigs.email.value,
 					password: this.state.signupFormConfigs.password.value,
 					confirmPassword: this.state.signupFormConfigs

@@ -19,6 +19,7 @@ app.use((req, res, next) => {
 app.use(loginRoutes);
 
 app.use((error, req, res, next) => {
+	console.log("Error Caught!");
 	const errorCode = error.code ? error.code : 501;
 	const errorMessage = error.message ? error.message : "Internal error.";
 

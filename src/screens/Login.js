@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
 	},
 	form: {
 		width: "90%",
-		marginTop: 20,
+		marginTop: 10,
 		paddingVertical: 25
 	}
 });

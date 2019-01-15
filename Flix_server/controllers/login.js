@@ -8,7 +8,7 @@ exports.postSignup = (req, res, next) => {
 	const validationErrors = validationResult(req).array();
 
 	//check to ensure user details are valid
-	if (validationResult(req).isEmpty()) {
+	if (!validationResult(req).isEmpty()) {
 		const validationMessages = validationErrors.map(
 			validate => validate.msg
 		);
@@ -22,7 +22,7 @@ exports.postSignup = (req, res, next) => {
 		//check for existing user
 		if (result.length) {
 			return res.status(500).json({
-				message: "User with that email already exists!"
+				message: ["User with that email already exists!"]
 			});
 		}
 
@@ -43,7 +43,7 @@ exports.postSignup = (req, res, next) => {
 						(err, token) => {
 							return res
 								.status(201)
-								.json({ message: "User created", token });
+								.json({ message: ["User created"], token });
 						}
 					)
 				);
@@ -59,7 +59,7 @@ exports.postLogin = (req, res, next) => {
 		if (!result.length) {
 			return res
 				.status(500)
-				.json({ message: "Incorrect email or password entered" });
+				.json({ message: ["Incorrect email or password entered"] });
 		}
 
 		//user exists now compare password against hash
@@ -74,12 +74,12 @@ exports.postLogin = (req, res, next) => {
 						(err, token) => {
 							return res
 								.status(200)
-								.json({ message: "Logged In", token });
+								.json({ message: ["Logged In"], token });
 						}
 					);
 				} else {
 					return res.status(500).json({
-						message: "Incorrect email or password entered"
+						message: ["Incorrect email or password entered"]
 					});
 				}
 			})

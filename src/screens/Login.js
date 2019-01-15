@@ -74,22 +74,14 @@ const styles = StyleSheet.create({
 		textAlign: "right",
 		color: "#ec407a"
 	},
-	errorMessage: {
-		backgroundColor: "#e53935",
-		position: "relative",
-		zIndex: 3
-	},
 	formCard: {
 		alignItems: "center"
 	},
 	form: {
 		width: "90%",
-		marginTop: 50,
+		marginTop: 20,
 		paddingVertical: 25
 	}
 });
 
 export default Login;
-// <View style={styles.errorMessage}>
-// 	<Text>Error</Text>
-// </View>

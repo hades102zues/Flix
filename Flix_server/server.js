@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const loginRoutes = require("./routes/login.js");
+const mongoose = require("mongoose");
 
 app.use(bodyParser.json());
 
@@ -14,7 +16,9 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use((error, req, res) => {
+app.use(loginRoutes);
+
+app.use((error, req, res, next) => {
 	const errorCode = error.code ? error.code : 501;
 	const errorMessage = error.message ? error.message : "Internal error.";
 
@@ -27,4 +31,10 @@ app.use((req, res) => {
 	res.status(404).json({ message: "Unknown Route" });
 });
 
-app.listen(3000);
+mongoose
+	.connect(
+		"mongodb+srv://hades102zues:2283450@flix-rtvo2.gcp.mongodb.net/Flix?retryWrites=true",
+		{ useNewUrlParser: true }
+	)
+	.then(result => app.listen(3000))
+	.catch(() => console.log("Error Connecting to Database"));

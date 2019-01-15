@@ -33,7 +33,7 @@ app.use((req, res) => {
 
 mongoose
 	.connect(
-		"mongodb+srv://hades102zues:2283450@flix-rtvo2.gcp.mongodb.net/test?retryWrites=true",
+		"mongodb+srv://hades102zues:2283450@flix-rtvo2.gcp.mongodb.net/Flix?retryWrites=true",
 		{ useNewUrlParser: true }
 	)
 	.then(result => app.listen(3000))

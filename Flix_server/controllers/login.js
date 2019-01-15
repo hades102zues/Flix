@@ -40,7 +40,6 @@ exports.postSignup = (req, res, next) => {
 					jwt.sign(
 						{ email: req.body.email },
 						SECRET,
-						{},
 						(err, token) => {
 							return res
 								.status(201)
@@ -72,7 +71,6 @@ exports.postLogin = (req, res, next) => {
 					jwt.sign(
 						{ email: req.body.email },
 						SECRET,
-						{},
 						(err, token) => {
 							return res
 								.status(200)

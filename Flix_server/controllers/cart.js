@@ -46,6 +46,30 @@ exports.deleteFromCart = (req, res, next) => {
 	);
 };
 
+exports.postPreCheckout = (req, res, next) => {
+	//get the contents of the user's cart
+	Cart.findOne({ email: req.body.email.toLowerCase() }, (err, cartDoc) => {
+		const cart = cartDoc.cart;
+
+		//get the user's wallet
+		User.findOne(
+			{ email: req.body.email.toLowerCase() },
+			(err, userDoc) => {
+				const wallet = userDoc.wallet;
+
+				let totalPrice = 0.0;
+
+				for (let item of cart) totalPrice += item.price;
+
+				res.status(200).json({
+					wallet: wallet,
+					cartCost: totalPrice.toFixed(2)
+				});
+			}
+		);
+	});
+};
+
 exports.postConfirmPurchase = (req, res, next) => {
 	//get the contents of the user's cart
 	Cart.findOne({ email: req.body.email.toLowerCase() }, (err, cartDoc) => {
@@ -69,7 +93,7 @@ exports.postConfirmPurchase = (req, res, next) => {
 					User.updateOne(
 						{ email: req.body.email.toLowerCase() },
 						{
-							wallet: updatedWallet,
+							wallet: updatedWallet.toFixed(2),
 							$push: {
 								purchaseHistory: [...cart]
 							}

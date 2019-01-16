@@ -76,7 +76,7 @@ const TabApp = createBottomTabNavigator(
 		}
 	},
 	{
-		initialRouteName: "Home"
+		initialRouteName: "Cart"
 	}
 );
 
@@ -86,7 +86,7 @@ const EntryStack = createStackNavigator(
 		Tab: TabApp
 	},
 	{
-		initialRouteName: "Login",
+		initialRouteName: "Tab",
 		defaultNavigationOptions: {
 			header: null
 		}

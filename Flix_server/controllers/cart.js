@@ -1,6 +1,10 @@
 const Cart = require("../models/cart");
 
-exports.getCart = (req, res, next) => {};
+exports.getCart = (req, res, next) => {
+	Cart.findOne({ email: req.body.email }, "cart", (err, doc) => {
+		res.status(200).json({ cart: doc.cart });
+	});
+};
 
 exports.postToCart = (req, res, next) => {
 	Cart.updateOne(

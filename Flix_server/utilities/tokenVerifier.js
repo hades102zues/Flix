@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const SECRET = "Kil3rQue3nbiT5D4Dust";
+const SECRET = require("./secret");
 
 module.exports = (req, res, next) => {
 	const token = req

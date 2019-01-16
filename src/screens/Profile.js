@@ -24,25 +24,16 @@ class Profile extends Component {
 			name: "",
 			email: "",
 			wallet: 0,
-			purchases: [
-				{
-					movieId: 424783,
-					posterPath: "/5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg"
-				},
-				{
-					movieId: 405774,
-					posterPath: "/rGfGfgL2pEPCfhIvqHXieXFn7gp.jpg"
-				},
-				{
-					movieId: 504172,
-					posterPath: "/t0idiLMalKMj2pLsvqHrOM4LPdQ.jpg"
-				}
-			]
+			purchases: []
 		};
 	}
 
 	componentDidMount() {
 		screenListener(this, this.state.screenChange);
+		this.fetchContent();
+	}
+
+	fetchContent = () => {
 		fetch(`${BASE_URL}/profile`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -58,7 +49,7 @@ class Profile extends Component {
 				})
 			)
 			.catch(err => console.log(err));
-	}
+	};
 
 	render() {
 		return (

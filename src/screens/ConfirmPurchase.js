@@ -15,6 +15,10 @@ class ConfirmPurchase extends Component {
 	}
 
 	componentDidMount() {
+		this.fetchContent();
+	}
+
+	fetchContent = () => {
 		fetch(`${BASE_URL}/pre-checkout`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -25,7 +29,7 @@ class ConfirmPurchase extends Component {
 				this.setState({ wallet: data.wallet, cartCost: data.cartCost })
 			)
 			.catch(err => console.log(err));
-	}
+	};
 
 	onButtonCheckoutHandler = () => {
 		fetch(`${BASE_URL}/confirm-purchase`, {
@@ -54,10 +58,10 @@ class ConfirmPurchase extends Component {
 				) : null}
 
 				<Text style={styles.topBarLeftText}>
-					{`Wallet :${this.state.wallet}`}
+					{` Wallet :$${this.state.wallet}`}
 				</Text>
 				<Text style={styles.topBarLeftText}>
-					{`Cost :${this.state.cartCost}`}
+					{` Cost :$${this.state.cartCost}`}
 				</Text>
 
 				<Button

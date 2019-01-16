@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import {
 	View,
 	Text,
@@ -7,84 +7,121 @@ import {
 	ScrollView,
 	Button,
 	StatusBar,
-	TouchableWithoutFeedback
+	TouchableWithoutFeedback,
+	TouchableNativeFeedback
 } from "react-native";
 import Container from "../components/Container/Container";
 import Icon from "react-native-vector-icons/Ionicons";
 
-const viewPage = props => {
-	const imagePath = props.navigation.getParam("posterPath", null);
-	const movieName = props.navigation.getParam("movieName", null);
-	const description = props.navigation.getParam("description", null);
-	const voteCount = props.navigation.getParam("voteCount", null);
-	const rating = props.navigation.getParam("rating", null);
+import { BASE_URL } from "../utilities/constants";
 
-	const movieCost = rating * 1.75 + 5.0;
+class ViewPage extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-	return (
-		<View style={styles.viewPageView}>
-			<View style={styles.imageBox}>
-				<Image
-					source={{
-						uri: `https://image.tmdb.org/t/p/w500/${imagePath}`
-					}}
-					height={null}
-					width={null}
-					resizeMode="cover"
-					style={{ flex: 1 }}
-				/>
-				<TouchableWithoutFeedback
-					onPress={() => props.navigation.goBack()}
-				>
-					<View style={styles.iconBox}>
-						<Icon name="md-arrow-back" size={24} color="#333" />
-					</View>
-				</TouchableWithoutFeedback>
-			</View>
+	onCartButtonPressHandler = () => {
+		const price =
+			this.props.navigation.getParam("rating", null) * 1.75 + 5.0;
+		fetch(`${BASE_URL}/add-to-cart`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "key"
+			},
+			body: JSON.stringify({
+				email: "joshua_kar@hotmail.com",
+				movieId: this.props.navigation.getParam("movieId", null),
+				name: this.props.navigation.getParam("movieName", null),
+				posterPath: this.props.navigation.getParam("posterPath", null),
+				price: price.toFixed(2)
+			})
+		})
+			.then(
+				response =>
+					(response.status = "200" ? alert("Added to Cart") : null)
+			)
+			.catch(err => console.log(err));
+	};
 
-			<View style={styles.movieFacts}>
-				<Container>
-					<ScrollView>
-						<Text style={styles.movieName}>{movieName}</Text>
-						<Text style={styles.description}>{description}</Text>
+	render() {
+		const imagePath = this.props.navigation.getParam("posterPath", null);
+		const movieName = this.props.navigation.getParam("movieName", null);
+		const description = this.props.navigation.getParam("description", null);
+		const voteCount = this.props.navigation.getParam("voteCount", null);
+		const rating = this.props.navigation.getParam("rating", null);
 
-						<View
-							style={{
-								paddingHorizontal: 15,
-								marginTop: 20
-							}}
-						>
-							<View style={styles.voters}>
-								<Text
-									style={styles.voterMetric}
-								>{`${rating} / 10`}</Text>
-								<Text
-									style={{
-										...styles.voterMetric,
-										borderLeftWidth: 1,
-										borderLeftColor: "#ccc"
-									}}
-								>
-									{`${voteCount} Reviews`}
-								</Text>
+		const movieCost = rating * 1.75 + 5.0;
+
+		return (
+			<View style={styles.viewPageView}>
+				<View style={styles.imageBox}>
+					<Image
+						source={{
+							uri: `https://image.tmdb.org/t/p/w500/${imagePath}`
+						}}
+						height={null}
+						width={null}
+						resizeMode="cover"
+						style={{ flex: 1 }}
+					/>
+					<TouchableWithoutFeedback
+						onPress={() => this.props.navigation.goBack()}
+					>
+						<View style={styles.iconBox}>
+							<Icon name="md-arrow-back" size={24} color="#333" />
+						</View>
+					</TouchableWithoutFeedback>
+				</View>
+
+				<View style={styles.movieFacts}>
+					<Container>
+						<ScrollView>
+							<Text style={styles.movieName}>{movieName}</Text>
+							<Text style={styles.description}>
+								{description}
+							</Text>
+
+							<View
+								style={{
+									paddingHorizontal: 15,
+									marginTop: 20
+								}}
+							>
+								<View style={styles.voters}>
+									<Text
+										style={styles.voterMetric}
+									>{`${rating} / 10`}</Text>
+									<Text
+										style={{
+											...styles.voterMetric,
+											borderLeftWidth: 1,
+											borderLeftColor: "#ccc"
+										}}
+									>
+										{`${voteCount} Reviews`}
+									</Text>
+								</View>
 							</View>
-						</View>
 
-						<Text style={styles.cost}>${movieCost.toFixed(2)}</Text>
+							<Text style={styles.cost}>
+								${movieCost.toFixed(2)}
+							</Text>
 
-						<View style={styles.buttonBox}>
-							<Button
-								title="Add to Cart"
-								color="#00C853"
-								onPress={() => null}
-							/>
-						</View>
-					</ScrollView>
-				</Container>
+							<View style={styles.buttonBox}>
+								<Button
+									title="Add to Cart"
+									color="#00C853"
+									onPress={this.onCartButtonPressHandler}
+								/>
+							</View>
+						</ScrollView>
+					</Container>
+				</View>
 			</View>
-		</View>
-	);
-};
+		);
+	}
+}
 
 const styles = StyleSheet.create({
 	viewPageView: {
@@ -141,4 +178,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default viewPage;
+export default ViewPage;

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import FormControl from "../../components/FormControl/FormControl";
 import { View, StyleSheet, Button, Text } from "react-native";
-
-const BASE_URL = "http://192.168.1.5:3000";
+import { BASE_URL } from "../../utilities/constants";
 
 class LoginForm extends Component {
 	constructor(props) {

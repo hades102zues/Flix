@@ -1,15 +1,16 @@
 const { validationResult } = require("express-validator/check");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const SECRET = "Kil3rQue3nbiT5D4Dust";
+const SECRET = require("../utilities/secret");
+//const SECRET = "Kil3rQue3nbiT5D4Dust";
 const User = require("../models/user");
+const Cart = require("../models/cart");
 
 exports.postSignup = (req, res, next) => {
 	const validationErrors = validationResult(req).array();
 
 	//check to ensure user details are valid
 	if (!validationResult(req).isEmpty()) {
-		console.log(validationErrors);
 		const validationMessages = validationErrors.map(
 			validate => validate.msg
 		);
@@ -33,23 +34,34 @@ exports.postSignup = (req, res, next) => {
 		bcrypt
 			.hash(req.body.password, 10)
 			.then(hash => {
+				//create the user document
 				const user = User({
 					name: req.body.name,
 					email: emailInLowerCase,
-					password: hash
+					password: hash,
+					wallet: 50
 				});
-				user.save(() =>
-					//send jwt
-					jwt.sign(
-						{ email: emailInLowerCase },
-						SECRET,
-						(err, token) => {
-							return res
-								.status(201)
-								.json({ message: ["User created"], token });
-						}
-					)
-				);
+
+				user.save(() => {
+					//Now create the user's Cart
+					const cart = Cart({
+						email: emailInLowerCase,
+						cart: []
+					});
+
+					cart.save(() => {
+						//send jwt
+						jwt.sign(
+							{ email: emailInLowerCase },
+							SECRET,
+							(err, token) => {
+								return res
+									.status(201)
+									.json({ message: ["User created"], token });
+							}
+						);
+					});
+				});
 			})
 			.catch(err => next(err));
 	});

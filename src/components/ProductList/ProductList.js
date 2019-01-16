@@ -14,14 +14,14 @@ const productList = props => {
 			data={props.productList}
 			renderItem={({ item }) => (
 				<Product
-					movieId={item.id}
-					movieName={item.title}
-					cost={item.cost}
+					movieId={item.movieId}
+					movieName={item.movieName}
+					cost={item.price}
 					posterPath={item.posterPath}
 					onDeleteButtonPress={props.deleteHandler}
 				/>
 			)}
-			keyExtractor={item => item.id.toString()}
+			keyExtractor={item => item._id.toString()}
 		/>
 	);
 };

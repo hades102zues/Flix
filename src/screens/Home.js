@@ -4,7 +4,7 @@ import Container from "../components/Container/Container";
 import HomeHeader from "../components/HomeHeader/HomeHeader";
 import MovieList from "../components/MovieList/MovieList";
 
-const API_KEY = "0dafe06101d3538149cbfe11c6db5ff6";
+import { API_KEY } from "../utilities/constants";
 
 class Home extends Component {
 	constructor(props) {

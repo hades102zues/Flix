@@ -1,23 +1,11 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
-	name: {
-		type: String,
-		required: true
-	},
+const cartSchema = new mongoose.Schema({
 	email: {
 		type: String,
 		required: true
 	},
-	password: {
-		type: String,
-		required: true
-	},
-	wallet: {
-		type: Number,
-		required: true
-	},
-	purchaseHistory: [
+	cart: [
 		{
 			movieId: {
 				type: Number,
@@ -39,6 +27,6 @@ const userSchema = new mongoose.Schema({
 	]
 });
 
-const User = mongoose.model("User", userSchema);
+const Cart = mongoose.model("Cart", cartSchema);
 
-module.exports = User;
+module.exports = Cart;

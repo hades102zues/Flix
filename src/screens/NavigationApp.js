@@ -86,7 +86,7 @@ const EntryStack = createStackNavigator(
 		Tab: TabApp
 	},
 	{
-		initialRouteName: "Login",
+		initialRouteName: "Tab",
 		defaultNavigationOptions: {
 			header: null
 		}

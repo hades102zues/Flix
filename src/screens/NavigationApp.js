@@ -76,7 +76,7 @@ const TabApp = createBottomTabNavigator(
 		}
 	},
 	{
-		initialRouteName: "Cart"
+		initialRouteName: "Profile"
 	}
 );
 

@@ -9,8 +9,8 @@ import {
 	Dimensions
 } from "react-native";
 import ProfileBox from "../components/ProfileBox/ProfileBox";
-
-import MovieList from "../components/MovieList/MovieList";
+import { BASE_URL } from "../utilities/constants";
+import MovieList from "../components/PurchaseList/MovieList";
 import {
 	screenListener,
 	screenHeight,
@@ -21,18 +21,21 @@ class Profile extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			name: "",
+			email: "",
+			wallet: 0,
 			purchases: [
 				{
-					id: 424783,
-					poster_path: "/5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg"
+					movieId: 424783,
+					posterPath: "/5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg"
 				},
 				{
-					id: 405774,
-					poster_path: "/rGfGfgL2pEPCfhIvqHXieXFn7gp.jpg"
+					movieId: 405774,
+					posterPath: "/rGfGfgL2pEPCfhIvqHXieXFn7gp.jpg"
 				},
 				{
-					id: 504172,
-					poster_path: "/t0idiLMalKMj2pLsvqHrOM4LPdQ.jpg"
+					movieId: 504172,
+					posterPath: "/t0idiLMalKMj2pLsvqHrOM4LPdQ.jpg"
 				}
 			]
 		};
@@ -40,6 +43,21 @@ class Profile extends Component {
 
 	componentDidMount() {
 		screenListener(this, this.state.screenChange);
+		fetch(`${BASE_URL}/profile`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ email: "joshua_kar@hotmail.com" })
+		})
+			.then(response => response.json())
+			.then(data =>
+				this.setState({
+					name: data.data.name,
+					email: data.data.email,
+					wallet: data.data.wallet,
+					purchases: data.data.purchaseHistory
+				})
+			)
+			.catch(err => console.log(err));
 	}
 
 	render() {
@@ -65,9 +83,9 @@ class Profile extends Component {
 					}}
 				>
 					<ProfileBox
-						name="Joshua Wiggins"
-						email="joshua_kar@hotmail.com"
-						cash="X.XX"
+						name={this.state.name}
+						email={this.state.email}
+						cash={this.state.wallet}
 					/>
 					<ScrollView contentContainerStyle={styles.scrollView}>
 						<View style={styles.scrollView}>

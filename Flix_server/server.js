@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 const loginRoutes = require("./routes/login.js");
 const cartRoutes = require("./routes/cart.js");
+const userRoutes = require("./routes/user.js");
 
 app.use(bodyParser.json());
 
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 
 app.use(loginRoutes);
 app.use(cartRoutes);
+app.use(userRoutes);
 
 app.use((error, req, res, next) => {
 	console.log("Error Caught!");

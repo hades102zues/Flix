@@ -29,6 +29,9 @@ class Checkout extends Component {
 
 	componentDidMount() {
 		this.fetchCartContents();
+		this.props.navigation.addListener("willFocus", () =>
+			this.fetchCartContents()
+		);
 	}
 
 	fetchCartContents = () => {

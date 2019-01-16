@@ -16,6 +16,9 @@ class ConfirmPurchase extends Component {
 
 	componentDidMount() {
 		this.fetchContent();
+		this.props.navigation.addListener("willFocus", () =>
+			this.fetchContent()
+		);
 	}
 
 	fetchContent = () => {

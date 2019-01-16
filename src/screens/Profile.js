@@ -31,6 +31,9 @@ class Profile extends Component {
 	componentDidMount() {
 		screenListener(this, this.state.screenChange);
 		this.fetchContent();
+		this.props.navigation.addListener("willFocus", () =>
+			this.fetchContent()
+		);
 	}
 
 	fetchContent = () => {

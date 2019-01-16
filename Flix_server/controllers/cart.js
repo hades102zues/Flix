@@ -1,6 +1,6 @@
 const Cart = require("../models/cart");
 
-exports.getCart = (req, res, next) => {
+exports.postCart = (req, res, next) => {
 	Cart.findOne(
 		{ email: req.body.email.toLowerCase() },
 		"cart",

@@ -10,6 +10,7 @@ import {
 
 import Container from "../components/Container/Container";
 import ProductList from "../components/ProductList/ProductList";
+import { BASE_URL } from "../utilities/constants";
 
 import {
 	screenListener,
@@ -21,33 +22,24 @@ class Checkout extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			productList: [
-				{
-					id: 424783,
-					title: "Aquaman",
-					cost: 7.5,
-					posterPath: "/5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg"
-				},
-				{
-					id: 405774,
-					title: "Bird Box",
-					cost: 7.55,
-					posterPath: "/rGfGfgL2pEPCfhIvqHXieXFn7gp.jpg"
-				},
-				{
-					id: 504172,
-					title: "The Mule",
-					cost: 5.55,
-					posterPath: "/t0idiLMalKMj2pLsvqHrOM4LPdQ.jpg"
-				}
-			],
+			productList: [],
 			totalPrice: 0
 		};
 	}
 
 	componentDidMount() {
-		this.calculateProductTotal();
-		screenListener(this);
+		fetch(`${BASE_URL}/cart`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ email: "joshua_kar@hotmail.com" })
+		})
+			.then(response => response.json())
+			.then(data =>
+				this.setState({ productList: data.cart }, () => {
+					this.calculateProductTotal();
+				})
+			)
+			.catch(err => console.log(err));
 	}
 
 	onClickDeleteHandler = itemId => {
@@ -65,7 +57,7 @@ class Checkout extends Component {
 	calculateProductTotal = () => {
 		let total = 0.0;
 
-		for (let product of this.state.productList) total += product.cost;
+		for (let product of this.state.productList) total += product.price;
 		this.setState({ totalPrice: total.toFixed(2) });
 	};
 

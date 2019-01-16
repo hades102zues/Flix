@@ -28,6 +28,10 @@ class Checkout extends Component {
 	}
 
 	componentDidMount() {
+		this.fetchCartContents();
+	}
+
+	fetchCartContents = () => {
 		fetch(`${BASE_URL}/cart`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -40,18 +44,17 @@ class Checkout extends Component {
 				})
 			)
 			.catch(err => console.log(err));
-	}
+	};
 
 	onClickDeleteHandler = itemId => {
-		const productList = this.state.productList;
-
-		const newProductList = productList.filter(
-			product => product.id !== itemId
-		);
-
-		this.setState({ productList: newProductList }, () => {
-			this.calculateProductTotal();
-		});
+		fetch(`${BASE_URL}/remove-from-cart`, {
+			method: "DELETE",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				email: "joshua_kar@hotmail.com",
+				movieId: itemId
+			})
+		}).then(() => this.fetchCartContents());
 	};
 
 	calculateProductTotal = () => {

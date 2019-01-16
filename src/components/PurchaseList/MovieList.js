@@ -12,7 +12,7 @@ class MovieList extends Component {
 		return (
 			<FlatList
 				data={this.props.moviesList}
-				keyExtractor={item => item.movieId.toString()} //change to _id
+				keyExtractor={item => item._id.toString()} //change to _id
 				horizontal
 				renderItem={({ item }) => (
 					<Movie

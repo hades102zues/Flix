@@ -12,7 +12,31 @@ const userSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		required: true
-	}
+	},
+	wallet: {
+		type: Number,
+		required: true
+	},
+	purchaseHistory: [
+		{
+			movieId: {
+				type: Number,
+				required: true
+			},
+			movieName: {
+				type: "String",
+				required: true
+			},
+			posterPath: {
+				type: "String",
+				required: true
+			},
+			price: {
+				type: Number,
+				required: true
+			}
+		}
+	]
 });
 
 const User = mongoose.model("User", userSchema);

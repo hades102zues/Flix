@@ -1,4 +1,5 @@
 const Cart = require("../models/cart");
+const User = require("../models/user");
 
 exports.postCart = (req, res, next) => {
 	Cart.findOne(
@@ -43,4 +44,54 @@ exports.deleteFromCart = (req, res, next) => {
 						.json({ message: "Failed to delete from cart" });
 		}
 	);
+};
+
+exports.postConfirmPurchase = (req, res, next) => {
+	//get the contents of the user's cart
+	Cart.findOne({ email: req.body.email.toLowerCase() }, (err, cartDoc) => {
+		const cart = cartDoc.cart;
+
+		//get the user's wallet
+		User.findOne(
+			{ email: req.body.email.toLowerCase() },
+			(err, userDoc) => {
+				const wallet = userDoc.wallet;
+
+				let totalPrice = 0.0;
+
+				for (let item of cart) totalPrice += item.price;
+
+				//continue with purchase
+				if (wallet > totalPrice) {
+					const updatedWallet = wallet - totalPrice;
+
+					//update users' wallet and purchase history
+					User.updateOne(
+						{ email: req.body.email.toLowerCase() },
+						{
+							wallet: updatedWallet,
+							$push: {
+								purchaseHistory: [...cart]
+							}
+						},
+						(err, doc) => {
+							//now remove all items from user's cart
+							Cart.updateOne(
+								{ email: req.body.email.toLowerCase() },
+								{ cart: [] },
+
+								//send a response
+								(err, doc) =>
+									res
+										.status(200)
+										.json({ message: "Purchase Completed" })
+							);
+						}
+					);
+				} else {
+					res.status(500).json({ message: "Insufficient Funds" });
+				}
+			}
+		);
+	});
 };

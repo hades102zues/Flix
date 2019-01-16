@@ -38,7 +38,8 @@ exports.postSignup = (req, res, next) => {
 				const user = User({
 					name: req.body.name,
 					email: emailInLowerCase,
-					password: hash
+					password: hash,
+					wallet: 50
 				});
 
 				user.save(() => {

@@ -27,4 +27,16 @@ exports.postToCart = (req, res, next) => {
 	);
 };
 
-exports.deleteFromCart = (req, res, next) => {};
+exports.deleteFromCart = (req, res, next) => {
+	Cart.updateOne(
+		{ email: req.body.email },
+		{ $pull: { cart: { movieId: req.body.movieId } } },
+		(err, doc) => {
+			!err
+				? res.status(200).json({ message: "Deleted from cart" })
+				: res
+						.status(500)
+						.json({ message: "Failed to delete from cart" });
+		}
+	);
+};

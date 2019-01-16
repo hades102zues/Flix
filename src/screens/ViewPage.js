@@ -7,7 +7,8 @@ import {
 	ScrollView,
 	Button,
 	StatusBar,
-	TouchableWithoutFeedback
+	TouchableWithoutFeedback,
+	TouchableNativeFeedback
 } from "react-native";
 import Container from "../components/Container/Container";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -15,9 +16,33 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { BASE_URL } from "../utilities/constants";
 
 class ViewPage extends Component {
-	onCartButtonPressHandler() {
-		fetch("");
+	constructor(props) {
+		super(props);
 	}
+
+	onCartButtonPressHandler = () => {
+		const price =
+			this.props.navigation.getParam("rating", null) * 1.75 + 5.0;
+		fetch(`${BASE_URL}/add-to-cart`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "key"
+			},
+			body: JSON.stringify({
+				email: "joshua_kar@hotmail.com",
+				movieId: this.props.navigation.getParam("movieId", null),
+				name: this.props.navigation.getParam("movieName", null),
+				posterPath: this.props.navigation.getParam("posterPath", null),
+				price: price.toFixed(2)
+			})
+		})
+			.then(
+				response =>
+					(response.status = "200" ? alert("Added to Cart") : null)
+			)
+			.catch(err => console.log(err));
+	};
 
 	render() {
 		const imagePath = this.props.navigation.getParam("posterPath", null);
@@ -87,7 +112,7 @@ class ViewPage extends Component {
 								<Button
 									title="Add to Cart"
 									color="#00C853"
-									onPress={() => null}
+									onPress={this.onCartButtonPressHandler}
 								/>
 							</View>
 						</ScrollView>

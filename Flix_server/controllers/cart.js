@@ -1,14 +1,18 @@
 const Cart = require("../models/cart");
 
 exports.getCart = (req, res, next) => {
-	Cart.findOne({ email: req.body.email }, "cart", (err, doc) => {
-		res.status(200).json({ cart: doc.cart });
-	});
+	Cart.findOne(
+		{ email: req.body.email.toLowerCase() },
+		"cart",
+		(err, doc) => {
+			res.status(200).json({ cart: doc.cart });
+		}
+	);
 };
 
 exports.postToCart = (req, res, next) => {
 	Cart.updateOne(
-		{ email: req.body.email },
+		{ email: req.body.email.toLowerCase() },
 		{
 			$push: {
 				cart: {
@@ -29,7 +33,7 @@ exports.postToCart = (req, res, next) => {
 
 exports.deleteFromCart = (req, res, next) => {
 	Cart.updateOne(
-		{ email: req.body.email },
+		{ email: req.body.email.toLowerCase() },
 		{ $pull: { cart: { movieId: req.body.movieId } } },
 		(err, doc) => {
 			!err

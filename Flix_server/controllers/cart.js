@@ -6,7 +6,10 @@ exports.postCart = (req, res, next) => {
 		{ email: req.body.email.toLowerCase() },
 		"cart",
 		(err, doc) => {
-			res.status(200).json({ cart: doc.cart });
+			if (doc.cart.length)
+				return res.status(200).json({ cart: doc.cart });
+
+			res.status(200).json({ cart: [] });
 		}
 	);
 };

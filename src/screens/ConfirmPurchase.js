@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button } from "react-native";
 import Container from "../components/Container/Container";
 
 import { BASE_URL } from "../utilities/constants";
+import { connect } from "react-redux";
 
 class ConfirmPurchase extends Component {
 	constructor(props) {
@@ -24,8 +25,11 @@ class ConfirmPurchase extends Component {
 	fetchContent = () => {
 		fetch(`${BASE_URL}/pre-checkout`, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ email: "joshua_kar@hotmail.com" })
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer = ${this.props.token}`
+			},
+			body: JSON.stringify({ email: this.props.userEmail })
 		})
 			.then(response => response.json())
 			.then(data =>
@@ -37,8 +41,11 @@ class ConfirmPurchase extends Component {
 	onButtonCheckoutHandler = () => {
 		fetch(`${BASE_URL}/confirm-purchase`, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ email: "joshua_kar@hotmail.com" })
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer = ${this.props.token}`
+			},
+			body: JSON.stringify({ email: this.props.userEmail })
 		})
 			.then(response =>
 				response.status === "200"
@@ -93,5 +100,11 @@ const styles = StyleSheet.create({
 		alignItems: "center"
 	}
 });
+const mapStateToProps = state => {
+	return {
+		userEmail: state.login.email,
+		token: state.login.token
+	};
+};
 
-export default ConfirmPurchase;
+export default connect(mapStateToProps)(ConfirmPurchase);

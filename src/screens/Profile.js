@@ -17,6 +17,8 @@ import {
 	screenHeightPercentage
 } from "../UI/ScreenApi/ScreenApi";
 
+import { connect } from "react-redux";
+
 class Profile extends Component {
 	constructor(props) {
 		super(props);
@@ -39,8 +41,11 @@ class Profile extends Component {
 	fetchContent = () => {
 		fetch(`${BASE_URL}/profile`, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ email: "joshua_kar@hotmail.com" })
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer = ${this.props.token}`
+			},
+			body: JSON.stringify({ email: this.props.userEmail })
 		})
 			.then(response => response.json())
 			.then(data =>
@@ -126,8 +131,11 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default Profile;
+const mapStateToProps = state => {
+	return {
+		userEmail: state.login.email,
+		token: state.login.token
+	};
+};
 
-//an outer view with a fixed height, D
-// the content generated in the scrollview must exceed D
-//
+export default connect(mapStateToProps)(Profile);

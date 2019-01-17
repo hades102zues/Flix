@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const loginRoutes = require("./routes/login.js");
 const cartRoutes = require("./routes/cart.js");
 const userRoutes = require("./routes/user.js");
+const tokenVerifier = require("./utilities/tokenVerifier");
 
 app.use(bodyParser.json());
 
@@ -20,6 +21,8 @@ app.use((req, res, next) => {
 });
 
 app.use(loginRoutes);
+
+app.use(tokenVerifier);
 app.use(cartRoutes);
 app.use(userRoutes);
 

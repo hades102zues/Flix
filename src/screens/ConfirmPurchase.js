@@ -11,15 +11,17 @@ class ConfirmPurchase extends Component {
 		this.state = {
 			wallet: 0,
 			cartCost: 0,
-			message: ""
+			message: "",
+			goodSale: false
 		};
 	}
 
 	componentDidMount() {
 		this.fetchContent();
-		this.props.navigation.addListener("willFocus", () =>
-			this.fetchContent()
-		);
+		this.props.navigation.addListener("willFocus", () => {
+			this.setState({ goodSale: false });
+			this.fetchContent();
+		});
 	}
 
 	fetchContent = () => {
@@ -47,11 +49,12 @@ class ConfirmPurchase extends Component {
 			},
 			body: JSON.stringify({ email: this.props.userEmail })
 		})
-			.then(response =>
-				response.status === "200"
-					? this.props.navigation.navigate("Home")
-					: response.json()
-			)
+			.then(response => {
+				response.status === 200
+					? this.setState({ goodSale: true })
+					: null;
+				return response.json();
+			})
 			.then(data => this.setState({ message: data.message }))
 			.catch(err => console.log(err));
 	};
@@ -60,7 +63,17 @@ class ConfirmPurchase extends Component {
 		return (
 			<Container>
 				{this.state.message ? (
-					<View style={styles.authMessageBox}>
+					<View
+						style={{
+							...styles.authMessageBox,
+							borderColor: this.state.goodSale
+								? "#00c853"
+								: "#d50000",
+							backgroundColor: this.state.goodSale
+								? "#69f0ae"
+								: "#e57373"
+						}}
+					>
 						<Text style={{ fontWeight: "500", fontSize: 40 }}>
 							{this.state.message}
 						</Text>
@@ -93,8 +106,6 @@ const styles = StyleSheet.create({
 	},
 	authMessageBox: {
 		borderWidth: 1,
-		borderColor: "#d50000",
-		backgroundColor: "#e57373",
 		padding: 5,
 		marginVertical: 10,
 		alignItems: "center"

@@ -3,6 +3,10 @@ import FormControl from "../../components/FormControl/FormControl";
 import { View, StyleSheet, Button, Text } from "react-native";
 import { BASE_URL } from "../../utilities/constants";
 
+import { connect } from "react-redux";
+
+import { storeQueryDetails } from "../../../redux/actions/login";
+
 class LoginForm extends Component {
 	constructor(props) {
 		super(props);
@@ -101,8 +105,16 @@ class LoginForm extends Component {
 			})
 				.then(response => response.json())
 				.then(data => {
-					if (data.token) this.props.navigation.navigate("Tab");
+					if (data.token) {
+						//server has authenticated the user
+						this.props.storeDetailsForServer({
+							email: this.state.loginFormConfigs.email.value,
+							token: data.token
+						});
+						return this.props.navigation.navigate("Tab");
+					}
 					if (data.message.length)
+						//server did not authenticate user
 						this.setState({ authMessages: data.message });
 				})
 				.catch(err => console.log(err));
@@ -120,7 +132,14 @@ class LoginForm extends Component {
 			})
 				.then(response => response.json())
 				.then(data => {
-					if (data.token) this.props.navigation.navigate("Tab");
+					if (data.token) {
+						//server has authenticated the user
+						this.props.storeDetailsForServer({
+							email: this.state.loginFormConfigs.email.value,
+							token: data.token
+						});
+						return this.props.navigation.navigate("Tab");
+					}
 					if (data.message.length)
 						this.setState({ authMessages: data.message });
 				})
@@ -176,4 +195,19 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default LoginForm;
+const mapStateToProps = state => {
+	return {
+		token: state.login.token
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		storeDetailsForServer: details => dispatch(storeQueryDetails(details))
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(LoginForm);

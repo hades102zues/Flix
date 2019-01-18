@@ -14,6 +14,7 @@ import Container from "../components/Container/Container";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import { BASE_URL } from "../utilities/constants";
+import { connect } from "react-redux";
 
 class ViewPage extends Component {
 	constructor(props) {
@@ -27,10 +28,10 @@ class ViewPage extends Component {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: "key"
+				Authorization: `Bearer = ${this.props.token}`
 			},
 			body: JSON.stringify({
-				email: "joshua_kar@hotmail.com",
+				email: this.props.userEmail,
 				movieId: this.props.navigation.getParam("movieId", null),
 				name: this.props.navigation.getParam("movieName", null),
 				posterPath: this.props.navigation.getParam("posterPath", null),
@@ -178,4 +179,11 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default ViewPage;
+const mapStateToProps = state => {
+	return {
+		userEmail: state.login.email,
+		token: state.login.token
+	};
+};
+
+export default connect(mapStateToProps)(ViewPage);

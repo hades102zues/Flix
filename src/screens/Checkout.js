@@ -18,6 +18,8 @@ import {
 	screenHeightPercentage
 } from "../UI/ScreenApi/ScreenApi";
 
+import { connect } from "react-redux";
+
 class Checkout extends Component {
 	constructor(props) {
 		super(props);
@@ -37,8 +39,11 @@ class Checkout extends Component {
 	fetchCartContents = () => {
 		fetch(`${BASE_URL}/cart`, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ email: "joshua_kar@hotmail.com" })
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer = ${this.props.token}`
+			},
+			body: JSON.stringify({ email: this.props.userEmail })
 		})
 			.then(response => response.json())
 			.then(data =>
@@ -52,9 +57,12 @@ class Checkout extends Component {
 	onClickDeleteHandler = itemId => {
 		fetch(`${BASE_URL}/remove-from-cart`, {
 			method: "DELETE",
-			headers: { "Content-Type": "application/json" },
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer = ${this.props.token}`
+			},
 			body: JSON.stringify({
-				email: "joshua_kar@hotmail.com",
+				email: this.props.userEmail,
 				movieId: itemId
 			})
 		}).then(() => this.fetchCartContents());
@@ -128,4 +136,11 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default Checkout;
+const mapStateToProps = state => {
+	return {
+		userEmail: state.login.email,
+		token: state.login.token
+	};
+};
+
+export default connect(mapStateToProps)(Checkout);

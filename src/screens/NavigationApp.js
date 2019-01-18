@@ -2,6 +2,7 @@ import React from "react";
 import {
 	createStackNavigator,
 	createBottomTabNavigator,
+	createSwitchNavigator,
 	createAppContainer
 } from "react-navigation";
 
@@ -76,11 +77,11 @@ const TabApp = createBottomTabNavigator(
 		}
 	},
 	{
-		initialRouteName: "Profile"
+		initialRouteName: "Home"
 	}
 );
 
-const EntryStack = createStackNavigator(
+const EntryStack = createSwitchNavigator(
 	{
 		Login: LoginScreen,
 		Tab: TabApp

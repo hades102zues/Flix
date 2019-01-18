@@ -195,6 +195,12 @@ const styles = StyleSheet.create({
 	}
 });
 
+const mapStateToProps = state => {
+	return {
+		token: state.login.token
+	};
+};
+
 const mapDispatchToProps = dispatch => {
 	return {
 		storeDetailsForServer: details => dispatch(storeQueryDetails(details))
@@ -202,6 +208,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(LoginForm);

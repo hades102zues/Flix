@@ -1,2 +1,2 @@
 # Flix
-Movie purchase app made with react native, nodejs, mongoDB--using The Movie Database API for pulling movie data.
+For practice I created a movie cart setup with react native, nodejs, mongoDB--using The Movie Database API for pulling movie data.
